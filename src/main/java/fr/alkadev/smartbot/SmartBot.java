@@ -1,5 +1,7 @@
 package fr.alkadev.smartbot;
 
+import fr.alkadev.smartbot.commands.CommandsManager;
+import fr.alkadev.smartbot.events.SmartBotListener;
 import fr.alkadev.smartbot.utils.Configuration;
 import fr.alkadev.smartbot.utils.FileWriter;
 import fr.alkadev.smartbot.utils.Serializer;
@@ -14,6 +16,7 @@ class SmartBot {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SmartBot.class);
 
+    private final CommandsManager commandsManager;
     private Configuration configuration;
 
     private JDA jda;
@@ -28,13 +31,15 @@ class SmartBot {
             FileWriter.writeFile(Configuration.CONFIGURATION_FILE, json);
         }
 
+        this.commandsManager = new CommandsManager(configuration.getPrefix());
+
     }
 
     void start() {
         try {
 
             this.jda = new JDABuilder(configuration.getToken())
-                    .addEventListener()
+                    .addEventListener(new SmartBotListener(this.commandsManager))
                     .build();
 
             LOGGER.info("Bot connected");
