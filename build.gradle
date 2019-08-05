@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'fr.alkadev'
+version '0.1.0'
+def jdaVersion = '3.8.3_460'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation 'org.slf4j:slf4j-simple:1.7.25'
+    implementation "net.dv8tion:JDA:$jdaVersion"
+    implementation 'com.google.code.gson:gson:2.8.5'
+}

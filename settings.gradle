@@ -1,0 +1,3 @@
+rootProject.name = 'SmartBot'
+include 'test'
+
