@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 
 class Remind {
 
+    private final String REMIND_QUEUE_SUCCESS_MESSAGE = "Votre rappel a été enregistré dans notre système avec succès. ";
     private final String ERROR_SEND_PRIVATE_CHANNEL = "Vous devez activer la réception des messages privés afin de recevoir vos rappels. ";
 
     private final User user;
@@ -29,6 +30,7 @@ class Remind {
         Consumer<PrivateChannel> privateChannelConsumer = privateChannel -> privateChannel.sendMessage(message).queue(message1 -> {}, throwableConsumer);
 
         user.openPrivateChannel().queueAfter(time, TimeUnit.MILLISECONDS, privateChannelConsumer);
+        channel.sendMessage(REMIND_QUEUE_SUCCESS_MESSAGE + user.getAsMention()).queue();
 
     }
 
