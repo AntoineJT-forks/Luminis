@@ -1,6 +1,7 @@
 package fr.alkadev.smartbot.polls.commands;
 
 import fr.alkadev.smartbot.commands.CommandRestricted;
+import fr.alkadev.smartbot.polls.PollsManager;
 import fr.alkadev.smartbot.polls.commands.arguments.PollCommandArgumentsManager;
 import net.dv8tion.jda.core.entities.Message;
 
@@ -11,7 +12,7 @@ public class PollCommand implements CommandRestricted {
     private final PollCommandArgumentsManager pollCommandArgumentsManager;
 
     public PollCommand(char prefix) {
-        pollCommandArgumentsManager = new PollCommandArgumentsManager(prefix);
+        pollCommandArgumentsManager = new PollCommandArgumentsManager(prefix, new PollsManager());
     }
 
     @Override

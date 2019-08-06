@@ -1,6 +1,7 @@
 package fr.alkadev.smartbot.polls.commands.arguments;
 
 import fr.alkadev.smartbot.commands.CommandRestricted;
+import fr.alkadev.smartbot.polls.PollsManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,10 +12,10 @@ public class PollCommandArgumentsManager {
 
     private final List<CommandRestricted> pollCommandArguments;
 
-    public PollCommandArgumentsManager(char prefix) {
+    public PollCommandArgumentsManager(char prefix, PollsManager pollsManager) {
         pollCommandArguments = new ArrayList<>(Arrays.asList(
                 new EmptyArgument(prefix),
-                new StartArgument()
+                new StartArgument(pollsManager)
         ));
         this.pollCommandArguments.add(new HelpArgument(this.pollCommandArguments));
     }
