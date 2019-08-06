@@ -15,19 +15,19 @@ public class RemindBuilder {
 
     }
 
-    public RemindBuilder defineChannel(TextChannel channel){
+    public RemindBuilder withChannel(TextChannel channel){
         this.channel = channel;
         return this;
 
     }
 
-    public RemindBuilder defineTime(long time){
+    public RemindBuilder withTime(long time){
         this.time = time;
         return this;
 
     }
 
-    public RemindBuilder editMessage(String message){
+    public RemindBuilder withMessage(String message){
         this.message = message;
         return this;
 

@@ -35,9 +35,9 @@ public class RemindCommand implements CommandRestricted {
         String reminder = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 
         Remind remind = new RemindBuilder(user)
-                .defineChannel(channel)
-                .defineTime(timeToMillis)
-                .editMessage(reminder)
+                .withChannel(channel)
+                .withTime(timeToMillis)
+                .withMessage(reminder)
                 .build();
 
         remind.sendRemind();
