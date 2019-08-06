@@ -20,7 +20,7 @@ public class HelpArgument implements CommandRestricted {
 
     @Override
     public String getDescription() {
-        return "Give all poll command's arguments.";
+        return "Envoie la liste des arguments disponibles.";
     }
 
     @Override

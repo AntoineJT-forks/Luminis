@@ -21,7 +21,7 @@ public class PollCommand implements CommandRestricted {
 
     @Override
     public String getDescription() {
-        return "Create and manage a poll.";
+        return "Créer et gérer un sondage.";
     }
 
     @Override

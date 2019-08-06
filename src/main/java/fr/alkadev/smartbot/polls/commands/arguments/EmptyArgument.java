@@ -18,7 +18,7 @@ public class EmptyArgument implements CommandRestricted {
 
     @Override
     public String getDescription() {
-        return "Help you if you don't know poll command's arguments.";
+        return "Envoie un message d'aide.";
     }
 
     @Override

@@ -12,7 +12,7 @@ public class StartArgument implements CommandRestricted {
 
     @Override
     public String getDescription() {
-        return "Start the creation of a poll.";
+        return "Démarre la création d'un sondage.";
     }
 
     @Override
