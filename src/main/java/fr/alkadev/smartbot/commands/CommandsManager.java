@@ -14,10 +14,10 @@ class CommandsManager {
 
     private List<CommandRestricted> commands;
 
-    CommandsManager() {
+    CommandsManager(char prefix) {
         commands = new ArrayList<>(Arrays.asList(
                 new AboutCommand(),
-                new PollCommand()
+                new PollCommand(prefix)
         ));
         this.commands.add(new RemindCommand());
         this.commands.add(new HelpCommand(this.commands));

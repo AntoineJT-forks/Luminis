@@ -11,9 +11,9 @@ public class PollCommandArgumentsManager {
 
     private final List<CommandRestricted> pollCommandArguments;
 
-    public PollCommandArgumentsManager() {
+    public PollCommandArgumentsManager(char prefix) {
         pollCommandArguments = new ArrayList<>(Arrays.asList(
-                new EmptyArgument(),
+                new EmptyArgument(prefix),
                 new StartArgument()
         ));
         this.pollCommandArguments.add(new HelpArgument(this.pollCommandArguments));

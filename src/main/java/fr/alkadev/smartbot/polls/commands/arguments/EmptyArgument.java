@@ -5,6 +5,12 @@ import net.dv8tion.jda.core.entities.Message;
 
 public class EmptyArgument implements CommandRestricted {
 
+    private final char prefix;
+
+    EmptyArgument(char prefix) {
+        this.prefix = prefix;
+    }
+
     @Override
     public String getCommand() {
         return " ";
@@ -17,7 +23,7 @@ public class EmptyArgument implements CommandRestricted {
 
     @Override
     public void execute(Message message, String[] args) {
-        message.getChannel().sendMessage("<poll help> to get the arguments list.").queue();
+        message.getChannel().sendMessage("<" + this.prefix + "poll help> to get the arguments list.").queue();
     }
 
 }

@@ -10,8 +10,8 @@ public class PollCommand implements CommandRestricted {
 
     private final PollCommandArgumentsManager pollCommandArgumentsManager;
 
-    public PollCommand() {
-        pollCommandArgumentsManager = new PollCommandArgumentsManager();
+    public PollCommand(char prefix) {
+        pollCommandArgumentsManager = new PollCommandArgumentsManager(prefix);
     }
 
     @Override

@@ -5,13 +5,13 @@ import net.dv8tion.jda.core.entities.Message;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class CommandExecutor {
+class CommandExecutor {
 
     private CommandsManager commandManager;
     private char prefix;
 
-    public CommandExecutor(char prefix) {
-        this.commandManager = new CommandsManager();
+    CommandExecutor(char prefix) {
+        this.commandManager = new CommandsManager(prefix);
         this.prefix = prefix;
     }
 
