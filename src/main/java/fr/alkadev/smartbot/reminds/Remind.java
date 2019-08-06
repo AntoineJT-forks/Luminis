@@ -7,24 +7,23 @@ import net.dv8tion.jda.core.entities.User;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-public class Remind {
-
-    private User user;
-    private TextChannel channel;
-    private long time;
-    private String message;
+class Remind {
 
     private final String ERROR_SEND_PRIVATE_CHANNEL = "Vous devez activer la réception des messages privés afin de recevoir vos rappels. ";
 
-    Remind(RemindBuilder remindBuilder){
-        this.user = remindBuilder.user;
-        this.channel = remindBuilder.channel;
-        this.time = remindBuilder.time;;
-        this.message = remindBuilder.message;;
+    private final User user;
+    private final TextChannel channel;
+    private final long time;
+    private final String message;
 
+    Remind(RemindBuilder builder) {
+        this.user = builder.user;
+        this.channel = builder.channel;
+        this.time = builder.time;
+        this.message = builder.message;
     }
 
-    public void sendRemind(){
+    void send() {
 
         Consumer<Throwable> throwableConsumer = throwable -> channel.sendMessage(ERROR_SEND_PRIVATE_CHANNEL + user.getAsMention()).queue();
         Consumer<PrivateChannel> privateChannelConsumer = privateChannel -> privateChannel.sendMessage(message).queue(message1 -> {}, throwableConsumer);

@@ -34,13 +34,12 @@ public class RemindCommand implements CommandRestricted {
         long timeToMillis = TimeParser.parsePeriod(args[0]);
         String reminder = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 
-        Remind remind = new RemindBuilder(user)
+        new RemindBuilder(user)
                 .withChannel(channel)
                 .withTime(timeToMillis)
                 .withMessage(reminder)
-                .build();
-
-        remind.sendRemind();
+                .build()
+                .send();
 
     }
 
