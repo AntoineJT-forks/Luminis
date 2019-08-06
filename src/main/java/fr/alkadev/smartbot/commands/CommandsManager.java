@@ -2,7 +2,7 @@ package fr.alkadev.smartbot.commands;
 
 import fr.alkadev.smartbot.system.commands.AboutCommand;
 import fr.alkadev.smartbot.system.commands.HelpCommand;
-import fr.alkadev.smartbot.system.commands.RemindCommand;
+import fr.alkadev.smartbot.reminds.RemindCommand;
 
 import java.util.ArrayList;
 import java.util.Arrays;

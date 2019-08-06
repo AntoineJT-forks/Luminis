@@ -1,4 +1,4 @@
-package fr.alkadev.smartbot.system.reminds;
+package fr.alkadev.smartbot.reminds;
 
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
