@@ -20,4 +20,8 @@ public class PollsManager {
         return this.polls.containsKey(user.getIdLong());
     }
 
+    public void removePoll(long userId) {
+        this.polls.remove(userId);
+    }
+
 }
