@@ -2,6 +2,7 @@ package fr.alkadev.smartbot.commands;
 
 import fr.alkadev.smartbot.system.commands.AboutCommand;
 import fr.alkadev.smartbot.system.commands.HelpCommand;
+import fr.alkadev.smartbot.system.commands.RemindCommand;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ public class CommandsManager {
         commands = new ArrayList<>(Arrays.asList(
                 new AboutCommand()
         ));
+        this.commands.add(new RemindCommand());
         this.commands.add(new HelpCommand(this.commands));
     }
 
