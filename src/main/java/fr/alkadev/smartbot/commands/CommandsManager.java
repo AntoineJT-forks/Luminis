@@ -1,5 +1,6 @@
 package fr.alkadev.smartbot.commands;
 
+import fr.alkadev.smartbot.polls.commands.PollCommand;
 import fr.alkadev.smartbot.system.commands.AboutCommand;
 import fr.alkadev.smartbot.system.commands.HelpCommand;
 import fr.alkadev.smartbot.reminds.RemindCommand;
@@ -9,13 +10,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class CommandsManager {
+class CommandsManager {
 
     private List<CommandRestricted> commands;
 
-    public CommandsManager() {
+    CommandsManager() {
         commands = new ArrayList<>(Arrays.asList(
-                new AboutCommand()
+                new AboutCommand(),
+                new PollCommand()
         ));
         this.commands.add(new RemindCommand());
         this.commands.add(new HelpCommand(this.commands));
