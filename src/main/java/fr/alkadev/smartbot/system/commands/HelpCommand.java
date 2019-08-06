@@ -30,9 +30,9 @@ public class HelpCommand implements CommandRestricted {
 
         message.getChannel().sendMessage(this.commands
                 .stream()
-                .map(command -> command.getCommand() + " : " + command.getDescription())
-                .reduce((sentMessage, commandDescription) -> sentMessage += commandDescription + "\n")
-                .map(sentMessage -> sentMessage + "\n" + this.getCommand() + " : " + this.getDescription())
+                .map(command -> command.getCommand() + " : " + command.getDescription() + "\n")
+                .reduce((sentMessage, commandDescription) -> sentMessage += commandDescription)
+                .map(sentMessage -> sentMessage + this.getCommand() + " : " + this.getDescription())
                 .orElse("Aucune commande n'est disponible.")).queue();
 
     }
