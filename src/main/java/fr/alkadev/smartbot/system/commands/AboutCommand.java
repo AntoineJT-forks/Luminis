@@ -12,13 +12,13 @@ public class AboutCommand implements CommandRestricted {
 
     @Override
     public String getDescription() {
-        return "About command which describe the SmartBot";
+        return "Commande \"à propos\" décrivant le bot.";
     }
 
     @Override
     public void execute(Message message, String[] args) {
 
-        message.getChannel().sendMessage("The SmartBot has been developed by Alexandre, AntoineJT and Luka.").queue();
+        message.getChannel().sendMessage("Le SmartBot a été développé par Alexandre, AntoineJT and Luka.").queue();
 
     }
 

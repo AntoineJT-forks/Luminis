@@ -22,7 +22,7 @@ public class HelpCommand implements CommandRestricted {
 
     @Override
     public String getDescription() {
-        return "Give all the SmartBot commands.";
+        return "Envoie la liste des commandes disponibles.";
     }
 
     @Override
