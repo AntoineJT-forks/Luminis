@@ -1,7 +1,8 @@
 package fr.alkadev.smartbot.commands;
 
-import fr.alkadev.smartbot.utils.BiPredicate;
 import net.dv8tion.jda.core.entities.MessageChannel;
+
+import java.util.function.BiPredicate;
 
 public enum ChannelType {
     
@@ -14,13 +15,13 @@ public enum ChannelType {
 
     PRIVATE((commandExecutor, messageChannel) -> messageChannel.getType() == net.dv8tion.jda.core.entities.ChannelType.PRIVATE);
 
-    private final BiPredicate isAuthorizedChannel;
+    private final BiPredicate<CommandRestricted, MessageChannel> isAuthorizedChannel;
 
-    ChannelType(BiPredicate isAuthorizedChannel) {
+    ChannelType(BiPredicate<CommandRestricted, MessageChannel> isAuthorizedChannel) {
         this.isAuthorizedChannel = isAuthorizedChannel;
     }
 
-    public boolean isAuthorizedChannel(CommandExecutor commandExecutor, MessageChannel messageChannel) {
+    public boolean isAuthorizedChannel(CommandRestricted commandExecutor, MessageChannel messageChannel) {
         return this.isAuthorizedChannel.test(commandExecutor, messageChannel);
     }
 

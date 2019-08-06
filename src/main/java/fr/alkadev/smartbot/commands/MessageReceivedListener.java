@@ -5,10 +5,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class MessageReceivedListener implements Listener<MessageReceivedEvent> {
 
-    private final CommandsManager commandManager;
+    private final CommandExecutor commandExecutor;
 
-    public MessageReceivedListener(CommandsManager commandManager) {
-        this.commandManager = commandManager;
+    public MessageReceivedListener(char prefix) {
+        this.commandExecutor = new CommandExecutor(prefix);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class MessageReceivedListener implements Listener<MessageReceivedEvent> {
     @Override
     public void executeListener(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
-        this.commandManager.executeCommand(event.getMessage());
+        this.commandExecutor.executeCommand(event.getMessage());
     }
 
 }
