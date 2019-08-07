@@ -7,7 +7,7 @@ import net.dv8tion.jda.core.entities.Message;
 public class StartArgument extends PollCommandArgument {
 
     public StartArgument(PollsManager pollsManager) {
-        super(pollsManager);
+        super(pollsManager, null);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class StartArgument extends PollCommandArgument {
     public void execute(Message message, String[] args) {
 
         if (this.pollsManager.hasPoll(message.getAuthor())) {
-            message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Vous avez déjà un sondage en cours de création.").queue());
+            message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Vous avez déjà un sondage en cours de création").queue());
             return;
         }
 
@@ -34,5 +34,4 @@ public class StartArgument extends PollCommandArgument {
         );
 
     }
-
 }

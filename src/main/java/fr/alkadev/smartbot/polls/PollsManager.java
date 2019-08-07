@@ -20,13 +20,20 @@ public class PollsManager {
         this.polls.put(user.getIdLong(), new Poll(user));
     }
 
-    public void removePoll(long userId) {
-        this.polls.remove(userId);
+    public void removePoll(User user) {
+        this.polls.remove(user.getIdLong());
+        user.openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Annulation du sondage.").queue());
     }
 
     public void setColor(User user, String color) {
         if (this.hasPoll(user)) {
             this.polls.get(user.getIdLong()).setColor(color);
+        }
+    }
+
+    public void setQuestion(User user, String question) {
+        if (this.hasPoll(user)) {
+            this.polls.get(user.getIdLong()).setQuestion(question);
         }
     }
 

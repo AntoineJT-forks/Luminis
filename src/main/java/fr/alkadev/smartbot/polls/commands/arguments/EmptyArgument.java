@@ -6,7 +6,7 @@ import net.dv8tion.jda.core.entities.Message;
 public class EmptyArgument extends PollCommandArgument {
 
     public EmptyArgument() {
-        super(null);
+        super(null, null);
     }
 
     @Override

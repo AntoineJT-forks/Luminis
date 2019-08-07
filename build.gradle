@@ -1,18 +1,33 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '4.0.4'
 }
 
 group 'fr.alkadev'
 version '0.1.0'
 def jdaVersion = '3.8.3_460'
 
-sourceCompatibility = 1.9
+sourceCompatibility = 1.8
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'fr.alkadev.smartbot.Main'
+        )
+    }
+}
+
+shadowJar {
+    shadowJar.setArchiveName("SmartBot.jar")
+}
 
 compileJava.options.encoding = 'UTF-8'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+archivesBaseName = 'SmartBot'
 
 repositories {
     mavenCentral()

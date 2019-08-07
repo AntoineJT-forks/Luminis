@@ -10,7 +10,7 @@ public class HelpArgument extends PollCommandArgument {
     private final List<PollCommandArgument> pollCommandArguments;
 
     public HelpArgument(List<PollCommandArgument> pollCommandArguments) {
-        super(null);
+        super(null, null);
         this.pollCommandArguments = pollCommandArguments;
     }
 

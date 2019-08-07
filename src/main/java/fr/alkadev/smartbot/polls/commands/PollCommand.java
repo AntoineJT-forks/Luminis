@@ -4,6 +4,7 @@ import fr.alkadev.smartbot.commands.CommandRestricted;
 import net.dv8tion.jda.core.entities.Message;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public class PollCommand implements CommandRestricted {
 
@@ -31,10 +32,18 @@ public class PollCommand implements CommandRestricted {
         }
 
         String[] finalArgs = args;
-        this.pollCommandArgumentsManager.getArgumentByName(args[0])
-                .ifPresentOrElse(
-                        commandRestricted -> commandRestricted.execute(message, Arrays.copyOfRange(finalArgs, 1, finalArgs.length)),
-                        () -> message.getChannel().sendMessage("<*poll help> pour obtenir la liste des arguments disponibles.").queue());
+
+        Optional<PollCommandArgument> optionalPollCommandArgument = this.pollCommandArgumentsManager.getArgumentByName(args[0]);
+
+        if (optionalPollCommandArgument.isPresent()) {
+
+            optionalPollCommandArgument.get().execute(message, Arrays.copyOfRange(finalArgs, 1, finalArgs.length));
+
+        } else {
+
+            message.getChannel().sendMessage("<*poll help> pour obtenir la liste des arguments disponibles.").queue();
+
+        }
 
     }
 

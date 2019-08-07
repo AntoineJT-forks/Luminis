@@ -18,7 +18,8 @@ class PollCommandArgumentsManager {
                 new EmptyArgument(),
                 new StartArgument(pollsManager),
                 new StopArgument(pollsManager),
-                new ColorArgument(pollsManager)
+                new ColorArgument(pollsManager),
+                new AskArgument(pollsManager)
         ));
         this.pollCommandArguments.add(new HelpArgument(this.pollCommandArguments));
     }
