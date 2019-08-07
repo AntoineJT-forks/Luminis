@@ -6,7 +6,7 @@ group 'fr.alkadev'
 version '0.1.0'
 def jdaVersion = '3.8.3_460'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.9
 
 compileJava.options.encoding = 'UTF-8'
 

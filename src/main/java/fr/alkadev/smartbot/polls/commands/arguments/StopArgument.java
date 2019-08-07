@@ -1,16 +1,14 @@
 package fr.alkadev.smartbot.polls.commands.arguments;
 
-import fr.alkadev.smartbot.commands.CommandRestricted;
 import fr.alkadev.smartbot.polls.PollsManager;
+import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 
-class StopCommand implements CommandRestricted {
+public class StopArgument extends PollCommandArgument {
 
-    private final PollsManager pollsManager;
-
-    StopCommand(PollsManager pollsManager) {
-        this.pollsManager = pollsManager;
+    public StopArgument(PollsManager pollsManager) {
+        super(pollsManager);
     }
 
     @Override

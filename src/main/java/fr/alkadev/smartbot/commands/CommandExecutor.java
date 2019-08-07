@@ -11,7 +11,7 @@ class CommandExecutor {
     private char prefix;
 
     CommandExecutor(char prefix) {
-        this.commandManager = new CommandsManager(prefix);
+        this.commandManager = new CommandsManager();
         this.prefix = prefix;
     }
 
@@ -35,15 +35,17 @@ class CommandExecutor {
                 message.getChannel().sendMessage("Mauvais channel ou permission manquante.").queue();
             }
 
-        } /* else {
+        } else {
 
-            CustomCommandData customCommandData = new CustomCommandDAO(this.databaseConnection).get(args[0]);
+            message.getChannel().sendMessage("<*help> pour obtenir la liste des commandes disponibles.").queue();
+
+            /* CustomCommandData customCommandData = new CustomCommandDAO(this.databaseConnection).get(args[0]);
 
             if (customCommandData != null) {
                 message.getChannel().sendMessage(customCommandData.text).queue();
-            }
+            } */
 
-        } */
+        }
 
     }
 

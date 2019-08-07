@@ -1,15 +1,13 @@
 package fr.alkadev.smartbot.polls.commands.arguments;
 
-import fr.alkadev.smartbot.commands.CommandRestricted;
 import fr.alkadev.smartbot.polls.PollsManager;
+import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
 import net.dv8tion.jda.core.entities.Message;
 
-public class StartArgument implements CommandRestricted {
+public class StartArgument extends PollCommandArgument {
 
-    private final PollsManager pollsManager;
-
-    StartArgument(PollsManager pollsManager) {
-        this.pollsManager = pollsManager;
+    public StartArgument(PollsManager pollsManager) {
+        super(pollsManager);
     }
 
     @Override
@@ -30,7 +28,7 @@ public class StartArgument implements CommandRestricted {
             return;
         }
 
-        message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Création d'un sondage").queue(
+        message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Création d'un sondage.").queue(
                 sentMessage -> this.pollsManager.createPoll(message.getAuthor()),
                 throwable -> message.getChannel().sendMessage(message.getAuthor().getAsMention() + ", vérifez que vos mp sont ouverts pour pouvoir démarrer la création d'un sondage.").queue())
         );

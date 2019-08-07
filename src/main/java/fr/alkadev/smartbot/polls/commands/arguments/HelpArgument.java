@@ -1,15 +1,16 @@
 package fr.alkadev.smartbot.polls.commands.arguments;
 
-import fr.alkadev.smartbot.commands.CommandRestricted;
+import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
 import net.dv8tion.jda.core.entities.Message;
 
 import java.util.List;
 
-public class HelpArgument implements CommandRestricted {
+public class HelpArgument extends PollCommandArgument {
 
-    private final List<CommandRestricted> pollCommandArguments;
+    private final List<PollCommandArgument> pollCommandArguments;
 
-    HelpArgument(List<CommandRestricted> pollCommandArguments) {
+    public HelpArgument(List<PollCommandArgument> pollCommandArguments) {
+        super(null);
         this.pollCommandArguments = pollCommandArguments;
     }
 
