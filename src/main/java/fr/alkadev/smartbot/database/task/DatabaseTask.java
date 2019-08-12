@@ -14,7 +14,7 @@ public class DatabaseTask extends TimerTask {
 
     @Override
     public void run() {
-
+        this.databaseManager.save();
     }
 
 }
