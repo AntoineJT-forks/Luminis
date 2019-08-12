@@ -4,17 +4,21 @@ import java.io.File;
 
 public class Configuration {
 
-    public static final File CONFIGURATION_FILE = new File("configuration.json");
+    private static final File CONFIGURATION_FILE = new File("configuration.json");
 
-    private String token = "";
-    private char prefix = ' ';
+    public String token = "";
+    public char prefix = ' ';
 
-    public String getToken() {
-        return this.token;
-    }
+    public static Configuration loadConfiguration() {
+        Configuration configuration = new Serializer<Configuration>().deserialize(CONFIGURATION_FILE, Configuration.class);
 
-    public char getPrefix() {
-        return prefix;
+        if (configuration == null) {
+            configuration = new Configuration();
+            String json = new Serializer<Configuration>().serialize(configuration);
+            FileWriter.writeFile(Configuration.CONFIGURATION_FILE, json);
+        }
+
+        return configuration;
     }
 
 }

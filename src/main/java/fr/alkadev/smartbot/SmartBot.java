@@ -2,8 +2,6 @@ package fr.alkadev.smartbot;
 
 import fr.alkadev.smartbot.events.SmartBotListener;
 import fr.alkadev.smartbot.utils.Configuration;
-import fr.alkadev.smartbot.utils.FileWriter;
-import fr.alkadev.smartbot.utils.Serializer;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import org.slf4j.Logger;
@@ -15,31 +13,14 @@ class SmartBot {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SmartBot.class);
 
-    private Configuration configuration;
-
     private JDA jda;
 
-    SmartBot() {
-        this.configuration = this.loadConfiguration();
-    }
-
-    private Configuration loadConfiguration() {
-        Configuration configuration = new Serializer<Configuration>().deserialize(Configuration.CONFIGURATION_FILE, Configuration.class);
-
-        if (configuration == null) {
-            configuration = new Configuration();
-            String json = new Serializer<Configuration>().serialize(configuration);
-            FileWriter.writeFile(Configuration.CONFIGURATION_FILE, json);
-        }
-
-        return configuration;
-    }
-
     void start() {
+        Configuration configuration = Configuration.loadConfiguration();
         try {
 
-            this.jda = new JDABuilder(this.configuration.getToken())
-                    .addEventListener(new SmartBotListener(this.configuration.getPrefix()))
+            this.jda = new JDABuilder(configuration.token)
+                    .addEventListener(new SmartBotListener(configuration.prefix))
                     .build();
 
             LOGGER.info("Bot connected");
@@ -51,7 +32,7 @@ class SmartBot {
     }
 
     void stop() {
-        jda.shutdown();
+        this.jda.shutdown();
         LOGGER.info("Bot disconnected");
         System.exit(0);
     }
