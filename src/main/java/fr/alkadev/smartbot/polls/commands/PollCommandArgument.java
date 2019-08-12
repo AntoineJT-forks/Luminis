@@ -10,11 +10,9 @@ import java.util.function.BiConsumer;
 public abstract class PollCommandArgument implements CommandRestricted {
 
     protected final PollsManager pollsManager;
-    private final BiConsumer<Message, String[]> pollsManagerAction;
 
-    protected PollCommandArgument(PollsManager pollsManager, BiConsumer<Message, String[]> pollsManagerAction) {
+    protected PollCommandArgument(PollsManager pollsManager) {
         this.pollsManager = pollsManager;
-        this.pollsManagerAction = pollsManagerAction;
     }
 
     @Override
@@ -25,13 +23,19 @@ public abstract class PollCommandArgument implements CommandRestricted {
     private BiConsumer<Message, String[]> getAction(User user) {
 
         BiConsumer<Message, String[]> consumer;
-        consumer = (message, args) -> message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Vous n'avez pas de sondage en cours de création.").queue());
+        consumer = this.getHasPollAction();
 
         if (!this.pollsManager.hasPoll(user)) {
-            consumer = this.pollsManagerAction;
+            consumer = this.getHasNotPollAction();
         }
 
         return consumer;
     }
+
+    protected BiConsumer<Message, String[]> getHasNotPollAction() {
+        return (message, args) -> message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Vous avez déjà un sondage en cours de création.").queue());
+    }
+
+    protected BiConsumer<Message, String[]> getHasPollAction() {return null;}
 
 }
