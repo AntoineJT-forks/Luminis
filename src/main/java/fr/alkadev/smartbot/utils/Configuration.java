@@ -8,6 +8,10 @@ public class Configuration {
 
     public String token = "";
     public char prefix = ' ';
+    public String host;
+    public String userName;
+    public String password;
+    public String databaseName;
 
     public static Configuration loadConfiguration() {
         Configuration configuration = new Serializer<Configuration>().deserialize(CONFIGURATION_FILE, Configuration.class);

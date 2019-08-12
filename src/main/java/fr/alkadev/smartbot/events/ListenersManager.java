@@ -1,6 +1,7 @@
 package fr.alkadev.smartbot.events;
 
 import fr.alkadev.smartbot.commands.MessageReceivedListener;
+import fr.alkadev.smartbot.database.DatabaseManager;
 import fr.alkadev.smartbot.system.events.ReadyListener;
 import net.dv8tion.jda.core.events.Event;
 
@@ -12,7 +13,7 @@ class ListenersManager {
 
     private final List<Listener> listeners;
 
-    ListenersManager(char prefix) {
+    ListenersManager(char prefix, DatabaseManager databaseManager) {
         this.listeners = Arrays.asList(
                 new ReadyListener(databaseManager),
                 new MessageReceivedListener(prefix)

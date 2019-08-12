@@ -1,14 +1,26 @@
 package fr.alkadev.smartbot.database;
 
+import fr.alkadev.smartbot.utils.Configuration;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
 
     private final List<DatabaseSaver> savers;
+    private final DatabaseConnection databaseConnection;
 
-    DatabaseManager() {
-        savers = new ArrayList<>();
+    public DatabaseManager(Configuration configuration) {
+        this.savers = new ArrayList<>();
+        this.databaseConnection = DatabaseBuilder
+                .aDatabaseBuilder()
+                .withHost(configuration.host)
+                .withUserName(configuration.userName)
+                .withPassword(configuration.password)
+                .withDatabaseName(configuration.databaseName)
+                .build();
     }
 
     public void addSavers(List<DatabaseSaver> savers) {
@@ -25,6 +37,10 @@ public class DatabaseManager {
 
     public void save() {
         this.savers.forEach(DatabaseSaver::save);
+    }
+
+    public Connection getConnection() throws SQLException {
+        return this.databaseConnection.getConnection();
     }
 
 }

@@ -17,5 +17,6 @@ dependencies {
     implementation 'org.slf4j:slf4j-simple:1.7.25'
     implementation "net.dv8tion:JDA:$jdaVersion"
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'postgresql:postgresql:9.4.1208-jdbc42-atlassian-hosted'
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '3.3.1'
 }
