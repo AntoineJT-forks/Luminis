@@ -7,7 +7,7 @@ public class DatabaseManager {
 
     private final List<DatabaseSaver> savers;
 
-    public DatabaseManager() {
+    DatabaseManager() {
         savers = new ArrayList<>();
     }
 
