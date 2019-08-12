@@ -14,7 +14,7 @@ class ListenersManager {
 
     ListenersManager(char prefix) {
         this.listeners = Arrays.asList(
-                new ReadyListener(),
+                new ReadyListener(databaseManager),
                 new MessageReceivedListener(prefix)
         );
     }
