@@ -1,22 +1,23 @@
-package fr.alkadev.smartbot.utils;
+package fr.alkadev.smartbot.utils.configuration;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import fr.alkadev.smartbot.utils.configuration.FileLoader;
 
 import java.io.File;
 
-public class Serializer<T> {
+class Serializer<T> {
 
     private static final Gson GSON = new GsonBuilder()
             .serializeNulls()
             .setPrettyPrinting()
             .create();
 
-    public String serialize(T object) {
+    String serialize(T object) {
         return GSON.toJson(object);
     }
 
-    public T deserialize(File file, Class<T> tClass) {
+    T deserialize(File file, Class<T> tClass) {
         String fileContent = FileLoader.load(file);
         return GSON.fromJson(fileContent, tClass);
     }

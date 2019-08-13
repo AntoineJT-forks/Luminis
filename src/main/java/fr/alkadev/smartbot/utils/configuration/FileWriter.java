@@ -1,14 +1,14 @@
-package fr.alkadev.smartbot.utils;
+package fr.alkadev.smartbot.utils.configuration;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 
-public class FileWriter {
+class FileWriter {
 
     private FileWriter(){}
 
-    public static void writeFile(File file, String content) {
+    static void writeFile(File file, String content) {
 
         BufferedWriter bufferedWriter;
 

@@ -1,4 +1,4 @@
-package fr.alkadev.smartbot.utils;
+package fr.alkadev.smartbot.utils.configuration;
 
 import java.io.BufferedReader;
 import java.io.File;
