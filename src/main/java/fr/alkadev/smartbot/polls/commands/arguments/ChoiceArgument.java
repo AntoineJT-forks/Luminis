@@ -29,31 +29,23 @@ public class ChoiceArgument extends PollCommandArgument {
 
     @Override
     protected void executeHasPollAction(Message message, String[] args) {
-        this.executeAction(message, args);
-    }
-
-    private void executeAction(Message message, String[] args) {
-        BiConsumer<Message, String[]> action;
-
-        action = (sentMessage, sentArgs) -> MessageSender.sendPrivateMessage(message.getAuthor(), this.errorMessage);
 
         if (args.length != 0 && args[0].matches("[0-9]+")) {
-            action = this::executeChoiceAction;
+            this.executeChoiceAction(message, args);
+        } else {
+            MessageSender.sendPrivateMessage(message.getAuthor(), this.errorMessage);
         }
 
-        action.accept(message, args);
     }
 
     private void executeChoiceAction(Message message, String[] args) {
-        BiConsumer<Message, String[]> action;
-
-        action = this::setChoice;
 
         if (this.getChoice(args).isEmpty()) {
-            action = this::removeChoice;
+            this.removeChoice(message, args);
+        } else{
+            this.setChoice(message, args);
         }
 
-        action.accept(message, args);
     }
 
     private void removeChoice(Message message, String[] args) {
