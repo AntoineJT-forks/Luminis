@@ -18,7 +18,9 @@ class PollCommandArgumentsManager {
                 new StartArgument(pollsManager),
                 new StopArgument(pollsManager),
                 new ColorArgument(pollsManager),
-                new AskArgument(pollsManager)
+                new AskArgument(pollsManager),
+                new ChoiceArgument(pollsManager),
+                new EmoteArgument(pollsManager)
         ));
         this.pollCommandArguments.add(new HelpArgument(this.pollCommandArguments));
     }

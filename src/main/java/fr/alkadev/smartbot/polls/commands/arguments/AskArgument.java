@@ -2,11 +2,7 @@ package fr.alkadev.smartbot.polls.commands.arguments;
 
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
 import fr.alkadev.smartbot.system.managers.SmartBotManager;
-import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
-
-import java.util.function.BiConsumer;
 
 public class AskArgument extends PollCommandArgument {
 
@@ -21,16 +17,17 @@ public class AskArgument extends PollCommandArgument {
 
     @Override
     public String getDescription() {
-        return "Définir la question du sondage";
+        return "Définir la question du sondage.";
+    }
+
+    protected void executeHasPollAction(Message message, String[] args) {
+        this.pollsManager.get(message.getAuthor().getIdLong()).ifPresent(poll -> poll.setQuestion(String.join(" ", args)));
+        super.executeHasPollAction(message, args);
     }
 
     @Override
-    protected BiConsumer<Message, String[]> getHasPollAction() {
-        return (message, args) -> {
-            User user = message.getAuthor();
-            this.pollsManager.get(user.getIdLong()).ifPresent(poll -> poll.setQuestion(String.join(" ", args)));
-            MessageSender.sendPrivateMessage(user, "La question du sondage a bien été changée.");
-        };
+    protected String getValidationMessage() {
+        return "La question du sondage a bien été changée.";
     }
 
 }
