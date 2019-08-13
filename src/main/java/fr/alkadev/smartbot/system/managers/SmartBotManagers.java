@@ -5,7 +5,6 @@ import fr.alkadev.smartbot.polls.PollsManager;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class SmartBotManagers {
@@ -15,6 +14,7 @@ public class SmartBotManagers {
     public SmartBotManagers() {
         this.savers = Arrays.asList(
                 new GuildsIdsManager(),
+                new ChannelsIdsManager(),
                 new PollsManager()
         );
     }

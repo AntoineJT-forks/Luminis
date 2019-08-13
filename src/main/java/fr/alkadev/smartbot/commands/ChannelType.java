@@ -10,8 +10,9 @@ public enum ChannelType {
             || commandExecutor.getAuthorizedChannelsNames().contains(messageChannel.getName())
             || commandExecutor.getAuthorizedChannelsNames().isEmpty()),
 
-    GUILD((commandExecutor, messageChannel) -> commandExecutor.getAuthorizedChannelsNames().contains(messageChannel.getName())
-            || commandExecutor.getAuthorizedChannelsNames().isEmpty()),
+    GUILD((commandExecutor, messageChannel) -> messageChannel.getType() != net.dv8tion.jda.core.entities.ChannelType.PRIVATE
+            && (commandExecutor.getAuthorizedChannelsNames().contains(messageChannel.getName())
+            || commandExecutor.getAuthorizedChannelsNames().isEmpty())),
 
     PRIVATE((commandExecutor, messageChannel) -> messageChannel.getType() == net.dv8tion.jda.core.entities.ChannelType.PRIVATE);
 

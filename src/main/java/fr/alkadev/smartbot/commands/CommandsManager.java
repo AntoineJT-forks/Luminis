@@ -4,6 +4,7 @@ import fr.alkadev.smartbot.polls.PollsManager;
 import fr.alkadev.smartbot.polls.commands.PollCommand;
 import fr.alkadev.smartbot.system.commands.AboutCommand;
 import fr.alkadev.smartbot.system.commands.HelpCommand;
+import fr.alkadev.smartbot.system.managers.ChannelsIdsManager;
 import fr.alkadev.smartbot.system.managers.SmartBotManagers;
 import fr.alkadev.smartbot.reminds.RemindCommand;
 
@@ -20,7 +21,7 @@ class CommandsManager {
         SmartBotManagers smartBotManagers = new SmartBotManagers();
         commands = new ArrayList<>(Arrays.asList(
                 new AboutCommand(),
-                new PollCommand(smartBotManagers.getManager(PollsManager.class))
+                new PollCommand(smartBotManagers.getManager(PollsManager.class), smartBotManagers.getManager(ChannelsIdsManager.class))
         ));
         this.commands.add(new RemindCommand());
         this.commands.add(new HelpCommand(this.commands));

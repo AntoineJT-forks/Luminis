@@ -12,7 +12,7 @@ class PollCommandArgumentsManager {
 
     private final List<PollCommandArgument> pollCommandArguments;
 
-    PollCommandArgumentsManager(SmartBotManager pollsManager) {
+    PollCommandArgumentsManager(SmartBotManager pollsManager, SmartBotManager channelsIdsManager) {
         pollCommandArguments = new ArrayList<>(Arrays.asList(
                 new EmptyArgument(),
                 new StartArgument(pollsManager),
@@ -20,7 +20,8 @@ class PollCommandArgumentsManager {
                 new ColorArgument(pollsManager),
                 new AskArgument(pollsManager),
                 new ChoiceArgument(pollsManager),
-                new EmoteArgument(pollsManager)
+                new EmoteArgument(pollsManager),
+                new ChannelArgument(channelsIdsManager)
         ));
         this.pollCommandArguments.add(new HelpArgument(this.pollCommandArguments));
     }

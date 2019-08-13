@@ -7,11 +7,8 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.Arrays;
-import java.util.function.BiConsumer;
 
 public class ChoiceArgument extends PollCommandArgument {
-
-    private final String errorMessage = "*poll choice <numéro du choix> <optionnel : description du choix>.";
 
     public ChoiceArgument(SmartBotManager pollsManager) {
         super(pollsManager);
@@ -30,10 +27,20 @@ public class ChoiceArgument extends PollCommandArgument {
     @Override
     protected void executeHasPollAction(Message message, String[] args) {
 
-        if (args.length != 0 && args[0].matches("[0-9]+")) {
+        boolean isFirstArgCorrect;
+
+        try {
+            Integer.parseInt(args[0]);
+            isFirstArgCorrect = true;
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException ignored) {
+            isFirstArgCorrect = false;
+        }
+
+        if (isFirstArgCorrect) {
             this.executeChoiceAction(message, args);
         } else {
-            MessageSender.sendPrivateMessage(message.getAuthor(), this.errorMessage);
+            String errorMessage = "*poll choice <numéro du choix> <optionnel : description du choix>.";
+            MessageSender.sendPrivateMessage(message.getAuthor(), errorMessage);
         }
 
     }
@@ -42,7 +49,7 @@ public class ChoiceArgument extends PollCommandArgument {
 
         if (this.getChoice(args).isEmpty()) {
             this.removeChoice(message, args);
-        } else{
+        } else {
             this.setChoice(message, args);
         }
 

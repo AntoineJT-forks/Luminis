@@ -12,8 +12,8 @@ public class PollCommand implements CommandRestricted {
 
     private final PollCommandArgumentsManager pollCommandArgumentsManager;
 
-    public PollCommand(SmartBotManager pollsManager) {
-        pollCommandArgumentsManager = new PollCommandArgumentsManager(pollsManager);
+    public PollCommand(SmartBotManager pollsManager, SmartBotManager channelsIdsManager) {
+        pollCommandArgumentsManager = new PollCommandArgumentsManager(pollsManager, channelsIdsManager);
     }
 
     @Override
@@ -29,17 +29,17 @@ public class PollCommand implements CommandRestricted {
     @Override
     public void execute(Message message, String[] args) {
 
-        if (args.length == 0) {
-            args = new String[]{" ", ""};
-        }
-
-        String[] finalArgs = args;
+        if (args.length == 0) args = new String[]{" ", ""};
 
         Optional<PollCommandArgument> optionalPollCommandArgument = this.pollCommandArgumentsManager.getArgumentByName(args[0]);
 
         if (optionalPollCommandArgument.isPresent()) {
 
-            optionalPollCommandArgument.get().execute(message, Arrays.copyOfRange(finalArgs, 1, finalArgs.length));
+            PollCommandArgument pollCommandArgument = optionalPollCommandArgument.get();
+
+            if (this.canExecute(pollCommandArgument, message)) {
+                pollCommandArgument.execute(message, Arrays.copyOfRange(args, 1, args.length));
+            }
 
         } else {
 
@@ -48,5 +48,11 @@ public class PollCommand implements CommandRestricted {
         }
 
     }
+
+    private boolean canExecute(CommandRestricted commandExecutor, Message message) {
+        return commandExecutor.isAuthorizedChannel(message.getChannel())
+                && (message.getChannelType() == net.dv8tion.jda.core.entities.ChannelType.PRIVATE || commandExecutor.isAuthorizedMember(message.getMember()));
+    }
+
 
 }
