@@ -1,19 +1,18 @@
 package fr.alkadev.smartbot.database;
 
-import fr.alkadev.smartbot.utils.Configuration;
+import fr.alkadev.smartbot.system.managers.SmartBotManagers;
+import fr.alkadev.smartbot.utils.configuration.Configuration;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseManager {
 
-    private final List<DatabaseSaver> savers;
+    private final SmartBotManagers smartBotManagers;
     private final DatabaseConnection databaseConnection;
 
-    public DatabaseManager(Configuration configuration) {
-        this.savers = new ArrayList<>();
+    public DatabaseManager(Configuration configuration, SmartBotManagers smartBotManagers) {
+        this.smartBotManagers = smartBotManagers;
         this.databaseConnection = DatabaseBuilder
                 .aDatabaseBuilder()
                 .withHost(configuration.host)
@@ -21,26 +20,23 @@ public class DatabaseManager {
                 .withPassword(configuration.password)
                 .withDatabaseName(configuration.databaseName)
                 .build();
-    }
 
-    public void addSavers(List<DatabaseSaver> savers) {
-        this.savers.addAll(savers);
-    }
-
-    public void addSaver(DatabaseSaver databaseSaver) {
-        this.savers.add(databaseSaver);
     }
 
     public void load() {
-        this.savers.forEach(DatabaseSaver::load);
+        try (Connection connection = this.databaseConnection.getConnection()) {
+            this.smartBotManagers.getSavers().forEach(databaseSaver -> databaseSaver.load(connection));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void save() {
-        this.savers.forEach(DatabaseSaver::save);
-    }
-
-    public Connection getConnection() throws SQLException {
-        return this.databaseConnection.getConnection();
+        try (Connection connection = this.databaseConnection.getConnection()) {
+            this.smartBotManagers.getSavers().forEach(databaseSaver -> databaseSaver.save(connection));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -1,14 +1,16 @@
 package fr.alkadev.smartbot.polls.commands.arguments;
 
-import fr.alkadev.smartbot.polls.PollsManager;
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
+import fr.alkadev.smartbot.system.managers.SmartBotManager;
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.User;
 
 import java.util.function.BiConsumer;
 
 public class ColorArgument extends PollCommandArgument {
 
-    public ColorArgument(PollsManager pollsManager) {
+    public ColorArgument(SmartBotManager pollsManager) {
         super(pollsManager);
     }
 
@@ -26,8 +28,14 @@ public class ColorArgument extends PollCommandArgument {
     protected BiConsumer<Message, String[]> getHasPollAction() {
 
         return (message, args) -> {
+            User user = message.getAuthor();
+
             if (args.length == 0) args = new String[]{""};
-            this.pollsManager.setColor(message.getAuthor(), args[0]);
+            String[] finalArgs = args;
+            this.pollsManager.get(user.getIdLong()).ifPresent(poll -> poll.setColor(finalArgs[0]));
+
+            MessageSender.sendPrivateMessage(user, "La couleur du sondage a bien été changée.");
+
         };
 
     }

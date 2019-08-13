@@ -2,6 +2,7 @@ package fr.alkadev.smartbot.system.commands;
 
 import fr.alkadev.smartbot.commands.Command;
 import fr.alkadev.smartbot.commands.CommandRestricted;
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
 import java.util.ArrayList;
@@ -28,12 +29,12 @@ public class HelpCommand implements CommandRestricted {
     @Override
     public void execute(Message message, String[] args) {
 
-        message.getChannel().sendMessage(this.commands
+        MessageSender.sendMessage(message.getChannel(), this.commands
                 .stream()
                 .map(command -> command.getCommand() + " : " + command.getDescription() + "\n")
                 .reduce((sentMessage, commandDescription) -> sentMessage += commandDescription)
                 .map(sentMessage -> sentMessage + this.getCommand() + " : " + this.getDescription())
-                .orElse("Aucune commande n'est disponible.")).queue();
+                .orElse("Aucune commande n'est disponible."));
 
     }
 

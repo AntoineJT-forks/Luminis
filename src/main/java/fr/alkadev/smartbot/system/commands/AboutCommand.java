@@ -1,6 +1,7 @@
 package fr.alkadev.smartbot.system.commands;
 
 import fr.alkadev.smartbot.commands.CommandRestricted;
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
 public class AboutCommand implements CommandRestricted {
@@ -18,7 +19,7 @@ public class AboutCommand implements CommandRestricted {
     @Override
     public void execute(Message message, String[] args) {
 
-        message.getChannel().sendMessage("Le SmartBot a été développé par Alexandre, AntoineJT and Luka.").queue();
+        MessageSender.sendMessage(message.getChannel(), "Le SmartBot a été développé par Alexandre, AntoineJT and Luka.");
 
     }
 

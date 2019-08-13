@@ -1,5 +1,7 @@
 package fr.alkadev.smartbot.commands;
 
+
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
 import java.util.Arrays;
@@ -32,12 +34,12 @@ class CommandExecutor {
             if (canExecute(commandRestricted, message)) {
                 commandRestricted.execute(message, Arrays.copyOfRange(args, 1, args.length));
             } else {
-                message.getChannel().sendMessage("Mauvais channel ou permission manquante.").queue();
+                MessageSender.sendMessage(message.getChannel(), "Mauvais channel ou permission manquante.");
             }
 
         } else {
 
-            message.getChannel().sendMessage("<*help> pour obtenir la liste des commandes disponibles.").queue();
+            MessageSender.sendMessage(message.getChannel(), "<*help> pour obtenir la liste des commandes disponibles.");
 
             /* CustomCommandData customCommandData = new CustomCommandDAO(this.databaseConnection).get(args[0]);
 

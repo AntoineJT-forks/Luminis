@@ -1,9 +1,11 @@
 package fr.alkadev.smartbot.database;
 
-interface DatabaseSaver {
+import java.sql.Connection;
 
-    void save();
+public interface DatabaseSaver {
 
-    void load();
+    void save(Connection connection);
+
+    void load(Connection connection);
 
 }

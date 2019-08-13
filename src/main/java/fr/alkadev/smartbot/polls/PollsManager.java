@@ -1,10 +1,11 @@
 package fr.alkadev.smartbot.polls;
 
-import net.dv8tion.jda.core.entities.User;
+import fr.alkadev.smartbot.system.managers.SmartBotManager;
 
 import java.util.HashMap;
+import java.util.Optional;
 
-public class PollsManager {
+public class PollsManager implements SmartBotManager<Poll, Long> {
 
     private final HashMap<Long, Poll> polls;
 
@@ -12,29 +13,24 @@ public class PollsManager {
         polls = new HashMap<>();
     }
 
-    public boolean hasPoll(User user) {
-        return this.polls.containsKey(user.getIdLong());
+    @Override
+    public boolean isPresent(Long userId) {
+        return this.polls.containsKey(userId);
     }
 
-    public void createPoll(User user) {
-        this.polls.put(user.getIdLong(), new Poll(user));
+    @Override
+    public Optional<Poll> get(Long userId) {
+        return Optional.ofNullable(this.polls.get(userId));
     }
 
-    public void removePoll(User user) {
-        this.polls.remove(user.getIdLong());
-        user.openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Annulation du sondage.").queue());
+    @Override
+    public void add(Long userId) {
+        this.polls.put(userId, new Poll());
     }
 
-    public void setColor(User user, String color) {
-        if (this.hasPoll(user)) {
-            this.polls.get(user.getIdLong()).setColor(color);
-        }
-    }
-
-    public void setQuestion(User user, String question) {
-        if (this.hasPoll(user)) {
-            this.polls.get(user.getIdLong()).setQuestion(question);
-        }
+    @Override
+    public void remove(Long userId) {
+        this.polls.remove(userId);
     }
 
 }

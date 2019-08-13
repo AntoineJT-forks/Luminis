@@ -1,11 +1,12 @@
 package fr.alkadev.smartbot.polls.commands.arguments;
 
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
 public class EmptyArgument extends PollCommandArgument {
 
-    protected EmptyArgument() {
+    public EmptyArgument() {
         super(null);
     }
 
@@ -21,7 +22,7 @@ public class EmptyArgument extends PollCommandArgument {
 
     @Override
     public void execute(Message message, String[] args) {
-        message.getChannel().sendMessage("<*poll help> pour obtenir la liste des arguments disponibles.").queue();
+        MessageSender.sendMessage(message.getChannel(), "<*poll help> pour obtenir la liste des arguments disponibles.");
     }
 
 }

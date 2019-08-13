@@ -1,14 +1,16 @@
 package fr.alkadev.smartbot.polls.commands.arguments;
 
-import fr.alkadev.smartbot.polls.PollsManager;
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
+import fr.alkadev.smartbot.system.managers.SmartBotManager;
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.User;
 
 import java.util.function.BiConsumer;
 
 public class StopArgument extends PollCommandArgument {
 
-    public StopArgument(PollsManager pollsManager) {
+    public StopArgument(SmartBotManager pollsManager) {
         super(pollsManager);
     }
 
@@ -24,7 +26,11 @@ public class StopArgument extends PollCommandArgument {
 
     @Override
     protected BiConsumer<Message, String[]> getHasPollAction() {
-        return (message, args) -> pollsManager.removePoll(message.getAuthor());
+        return (message, args) -> {
+            User user = message.getAuthor();
+            this.pollsManager.remove(user.getIdLong());
+            MessageSender.sendPrivateMessage(user, "Annulation du sondage");
+        };
     }
 
 }

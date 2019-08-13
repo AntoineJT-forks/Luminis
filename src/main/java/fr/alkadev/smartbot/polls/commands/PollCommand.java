@@ -1,6 +1,8 @@
 package fr.alkadev.smartbot.polls.commands;
 
 import fr.alkadev.smartbot.commands.CommandRestricted;
+import fr.alkadev.smartbot.system.managers.SmartBotManager;
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
 import java.util.Arrays;
@@ -10,8 +12,8 @@ public class PollCommand implements CommandRestricted {
 
     private final PollCommandArgumentsManager pollCommandArgumentsManager;
 
-    public PollCommand() {
-        pollCommandArgumentsManager = new PollCommandArgumentsManager();
+    public PollCommand(SmartBotManager pollsManager) {
+        pollCommandArgumentsManager = new PollCommandArgumentsManager(pollsManager);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class PollCommand implements CommandRestricted {
 
         } else {
 
-            message.getChannel().sendMessage("<*poll help> pour obtenir la liste des arguments disponibles.").queue();
+            MessageSender.sendMessage(message.getChannel(), "<*poll help> pour obtenir la liste des arguments disponibles.");
 
         }
 

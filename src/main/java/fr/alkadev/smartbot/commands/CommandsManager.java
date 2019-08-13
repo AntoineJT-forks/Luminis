@@ -1,8 +1,10 @@
 package fr.alkadev.smartbot.commands;
 
+import fr.alkadev.smartbot.polls.PollsManager;
 import fr.alkadev.smartbot.polls.commands.PollCommand;
 import fr.alkadev.smartbot.system.commands.AboutCommand;
 import fr.alkadev.smartbot.system.commands.HelpCommand;
+import fr.alkadev.smartbot.system.managers.SmartBotManagers;
 import fr.alkadev.smartbot.reminds.RemindCommand;
 
 import java.util.ArrayList;
@@ -15,9 +17,10 @@ class CommandsManager {
     private List<CommandRestricted> commands;
 
     CommandsManager() {
+        SmartBotManagers smartBotManagers = new SmartBotManagers();
         commands = new ArrayList<>(Arrays.asList(
                 new AboutCommand(),
-                new PollCommand()
+                new PollCommand(smartBotManagers.getManager(PollsManager.class))
         ));
         this.commands.add(new RemindCommand());
         this.commands.add(new HelpCommand(this.commands));

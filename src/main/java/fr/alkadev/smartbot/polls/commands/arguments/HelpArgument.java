@@ -1,6 +1,7 @@
 package fr.alkadev.smartbot.polls.commands.arguments;
 
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
 import java.util.List;
@@ -27,11 +28,11 @@ public class HelpArgument extends PollCommandArgument {
     @Override
     public void execute(Message message, String[] args) {
 
-        message.getChannel().sendMessage(this.pollCommandArguments
+        MessageSender.sendMessage(message.getChannel(), this.pollCommandArguments
                 .stream()
                 .map(command -> command.getCommand() + " : " + command.getDescription() + "\n")
                 .reduce((sentMessage, commandDescription) -> sentMessage += commandDescription)
-                .orElse("Aucune commande n'est disponible.")).queue();
+                .orElse("Aucune commande n'est disponible."));
 
     }
 

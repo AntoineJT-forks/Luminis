@@ -2,6 +2,8 @@ package fr.alkadev.smartbot.polls.commands;
 
 import fr.alkadev.smartbot.commands.CommandRestricted;
 import fr.alkadev.smartbot.polls.PollsManager;
+import fr.alkadev.smartbot.system.managers.SmartBotManager;
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 
@@ -11,8 +13,8 @@ public abstract class PollCommandArgument implements CommandRestricted {
 
     protected final PollsManager pollsManager;
 
-    protected PollCommandArgument(PollsManager pollsManager) {
-        this.pollsManager = pollsManager;
+    protected PollCommandArgument(SmartBotManager pollsManager) {
+        this.pollsManager = (PollsManager) pollsManager;
     }
 
     @Override
@@ -25,7 +27,7 @@ public abstract class PollCommandArgument implements CommandRestricted {
         BiConsumer<Message, String[]> consumer;
         consumer = this.getHasPollAction();
 
-        if (!this.pollsManager.hasPoll(user)) {
+        if (!this.pollsManager.isPresent(user.getIdLong())) {
             consumer = this.getHasNotPollAction();
         }
 
@@ -33,9 +35,11 @@ public abstract class PollCommandArgument implements CommandRestricted {
     }
 
     protected BiConsumer<Message, String[]> getHasNotPollAction() {
-        return (message, args) -> message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Vous avez déjà un sondage en cours de création.").queue());
+        return (message, args) -> MessageSender.sendPrivateMessage(message.getAuthor(), "Vous n'avez pas de sondage en cours de création.");
     }
 
-    protected BiConsumer<Message, String[]> getHasPollAction() {return null;}
+    protected BiConsumer<Message, String[]> getHasPollAction() {
+        return null;
+    }
 
 }
