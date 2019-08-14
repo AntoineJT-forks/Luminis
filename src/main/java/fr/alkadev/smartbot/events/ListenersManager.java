@@ -2,8 +2,11 @@ package fr.alkadev.smartbot.events;
 
 import fr.alkadev.smartbot.commands.MessageReceivedListener;
 import fr.alkadev.smartbot.database.DatabaseManager;
-import fr.alkadev.smartbot.system.managers.SmartBotManagers;
+import fr.alkadev.smartbot.system.events.GuildJoinListener;
+import fr.alkadev.smartbot.system.events.GuildLeaveListener;
 import fr.alkadev.smartbot.system.events.ReadyListener;
+import fr.alkadev.smartbot.system.managers.GuildsIdsManager;
+import fr.alkadev.smartbot.system.managers.SmartBotManagers;
 import net.dv8tion.jda.core.events.Event;
 
 import java.util.Arrays;
@@ -17,7 +20,9 @@ public class ListenersManager {
     public ListenersManager(char prefix, DatabaseManager databaseManager, SmartBotManagers smartBotManagers) {
         this.listeners = Arrays.asList(
                 new ReadyListener(databaseManager),
-                new MessageReceivedListener(prefix)
+                new MessageReceivedListener(prefix),
+                new GuildJoinListener(smartBotManagers.getManager(GuildsIdsManager.class)),
+                new GuildLeaveListener(smartBotManagers.getManager(GuildsIdsManager.class))
         );
     }
 

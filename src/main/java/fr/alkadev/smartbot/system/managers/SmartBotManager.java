@@ -8,7 +8,7 @@ public interface SmartBotManager<T, U> {
 
     Optional<T> get(U index);
 
-    void add(U index);
+    void add(U index, T element);
 
     void remove(U index);
 

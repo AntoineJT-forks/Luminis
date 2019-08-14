@@ -6,10 +6,15 @@ import java.util.TreeMap;
 
 public class Poll {
 
+    private final long guildId;
     private PollColor color;
     private String question;
     private Map<Integer, String> choices = new TreeMap<>();
     private Map<Integer, String> emotes = new HashMap<>();
+
+    public Poll(long guildId) {
+        this.guildId = guildId;
+    }
 
     public void setColor(String color) {
         this.color = PollColor.fromString(color);

@@ -47,6 +47,7 @@ class SmartBot {
     }
 
     void stop() {
+        this.databaseManager.save();
         this.jda.shutdown();
         LOGGER.info("Bot disconnected");
         System.exit(0);

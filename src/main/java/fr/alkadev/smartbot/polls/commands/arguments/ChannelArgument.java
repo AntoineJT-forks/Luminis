@@ -3,6 +3,7 @@ package fr.alkadev.smartbot.polls.commands.arguments;
 import fr.alkadev.smartbot.commands.ChannelType;
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
 import fr.alkadev.smartbot.system.managers.ChannelsIdsManager;
+import fr.alkadev.smartbot.system.managers.GuildsIdsManager;
 import fr.alkadev.smartbot.system.managers.SmartBotManager;
 import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.Permission;
@@ -13,10 +14,12 @@ import java.util.List;
 public class ChannelArgument extends PollCommandArgument {
 
     private final ChannelsIdsManager channelsIdsManager;
+    private final GuildsIdsManager guildsIdsManager;
 
-    public ChannelArgument(SmartBotManager channelsIdsManager) {
+    public ChannelArgument(SmartBotManager channelsIdsManager, SmartBotManager guildsIdsManager) {
         super(null);
         this.channelsIdsManager = (ChannelsIdsManager) channelsIdsManager;
+        this.guildsIdsManager = (GuildsIdsManager) guildsIdsManager;
     }
 
     @Override
@@ -49,7 +52,12 @@ public class ChannelArgument extends PollCommandArgument {
             return;
         }
 
-        this.channelsIdsManager.get(message.getGuild().getIdLong()).ifPresent(map -> map.put("polls", mentionedChannels.get(0).getIdLong()));
+        int guildId = this.guildsIdsManager.get(message.getGuild().getIdLong()).orElse(0);
+
+        this.channelsIdsManager.get(guildId).ifPresent(map -> {
+            map.put("polls", mentionedChannels.get(0).getIdLong());
+            MessageSender.sendMessage(message.getChannel(), "Le salon des sondages a bien été défini à " + mentionedChannels.get(0).getAsMention() + ".");
+        });
 
     }
 

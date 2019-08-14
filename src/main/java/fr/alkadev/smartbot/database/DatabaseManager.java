@@ -1,5 +1,6 @@
 package fr.alkadev.smartbot.database;
 
+import fr.alkadev.smartbot.system.managers.GuildsIdsManager;
 import fr.alkadev.smartbot.system.managers.SmartBotManagers;
 import fr.alkadev.smartbot.utils.configuration.Configuration;
 
@@ -25,7 +26,11 @@ public class DatabaseManager {
 
     public void load() {
         try (Connection connection = this.databaseConnection.getConnection()) {
-            this.smartBotManagers.getSavers().forEach(databaseSaver -> databaseSaver.load(connection));
+
+            for (DatabaseSaver databaseSaver : this.smartBotManagers.getSavers()) {
+                databaseSaver.load(connection);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -33,7 +38,31 @@ public class DatabaseManager {
 
     public void save() {
         try (Connection connection = this.databaseConnection.getConnection()) {
-            this.smartBotManagers.getSavers().forEach(databaseSaver -> databaseSaver.save(connection));
+
+            for (DatabaseSaver databaseSaver : this.smartBotManagers.getSavers()) {
+                databaseSaver.save(connection);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveGuildsIds() {
+        try (Connection connection = this.databaseConnection.getConnection()) {
+
+            ((DatabaseSaver) this.smartBotManagers.getManager(GuildsIdsManager.class)).save(connection);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadGuildsIds() {
+        try (Connection connection = this.databaseConnection.getConnection()) {
+
+            ((DatabaseSaver) this.smartBotManagers.getManager(GuildsIdsManager.class)).load(connection);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

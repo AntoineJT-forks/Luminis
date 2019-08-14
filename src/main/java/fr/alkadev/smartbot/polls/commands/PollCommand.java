@@ -12,8 +12,8 @@ public class PollCommand implements CommandRestricted {
 
     private final PollCommandArgumentsManager pollCommandArgumentsManager;
 
-    public PollCommand(SmartBotManager pollsManager, SmartBotManager channelsIdsManager) {
-        pollCommandArgumentsManager = new PollCommandArgumentsManager(pollsManager, channelsIdsManager);
+    public PollCommand(SmartBotManager pollsManager, SmartBotManager channelsIdsManager, SmartBotManager guildsIdsManager) {
+        pollCommandArgumentsManager = new PollCommandArgumentsManager(pollsManager, channelsIdsManager, guildsIdsManager);
     }
 
     @Override

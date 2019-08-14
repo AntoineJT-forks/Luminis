@@ -24,8 +24,8 @@ public class PollsManager implements SmartBotManager<Poll, Long> {
     }
 
     @Override
-    public void add(Long userId) {
-        this.polls.put(userId, new Poll());
+    public void add(Long userId, Poll poll) {
+        this.polls.put(userId, poll);
     }
 
     @Override
