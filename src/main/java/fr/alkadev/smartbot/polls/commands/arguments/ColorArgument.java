@@ -24,7 +24,7 @@ public class ColorArgument extends PollCommandArgument {
         if (args.length == 0) args = new String[]{""};
 
         String[] finalArgs = args;
-        this.pollsManager.get(message.getAuthor().getIdLong()).ifPresent(poll -> poll.setColor(finalArgs[0]));
+        this.pollsManager.get(message.getAuthor().getIdLong()).setColor(finalArgs[0]);
         super.executeHasPollAction(message, args);
     }
 

@@ -5,12 +5,16 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DatabaseConnection {
+class DatabaseConnection {
 
-    private HikariDataSource dataSource;
+    private final HikariDataSource dataSource;
 
     DatabaseConnection(DatabaseBuilder builder) {
         this.dataSource = new HikariDataSource();
+        setUpHikariCP(builder);
+    }
+
+    private void setUpHikariCP(DatabaseBuilder builder) {
         this.dataSource.setJdbcUrl("jdbc:postgresql://" + builder.host + ":5432/" + builder.databaseName);
         this.dataSource.setUsername(builder.userName);
         this.dataSource.setPassword(builder.password);

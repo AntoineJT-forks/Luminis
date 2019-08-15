@@ -29,22 +29,25 @@ public class TimeParser {
         long time = 0;
 
         for (int i = 0; i < chars.length; i++) {
-            if (Character.isDigit(chars[i]))
+
+            if (Character.isDigit(chars[i])) {
                 timeBuilder.append(chars[i]);
-            else {
-                keyBuilder.append(chars[i]);
-                if (i == chars.length - 1 || Character.isDigit(chars[i + 1])) {
-                    Long mul = TIME_FORMAT.get(keyBuilder.toString());
-
-                    if (mul == null)
-                        return 0;
-
-                    time += (Integer.parseInt(timeBuilder.toString()) * mul);
-
-                    timeBuilder = new StringBuilder();
-                    keyBuilder = new StringBuilder();
-                }
+                continue;
             }
+
+            keyBuilder.append(chars[i]);
+            if (i == chars.length - 1 || Character.isDigit(chars[i + 1])) {
+                Long mul = TIME_FORMAT.get(keyBuilder.toString());
+
+                if (mul == null)
+                    return 0;
+
+                time += (Integer.parseInt(timeBuilder.toString()) * mul);
+
+                timeBuilder = new StringBuilder();
+                keyBuilder = new StringBuilder();
+            }
+
         }
 
         if (keyBuilder.length() > 0 || timeBuilder.length() > 0)

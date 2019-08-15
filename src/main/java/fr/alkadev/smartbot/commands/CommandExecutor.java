@@ -1,6 +1,7 @@
 package fr.alkadev.smartbot.commands;
 
 
+import fr.alkadev.smartbot.system.managers.SmartBotManagers;
 import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
@@ -12,8 +13,8 @@ class CommandExecutor {
     private CommandsManager commandManager;
     private char prefix;
 
-    CommandExecutor(char prefix) {
-        this.commandManager = new CommandsManager();
+    CommandExecutor(char prefix, SmartBotManagers smartBotManagers) {
+        this.commandManager = new CommandsManager(smartBotManagers);
         this.prefix = prefix;
     }
 
@@ -28,32 +29,27 @@ class CommandExecutor {
         Optional<CommandRestricted> optionalAccessRestricted = this.commandManager.getCommandExecutorByName(args[0]);
 
         if (optionalAccessRestricted.isPresent()) {
-
-            CommandRestricted commandRestricted = optionalAccessRestricted.get();
-
-            if (canExecute(commandRestricted, message)) {
-                commandRestricted.execute(message, Arrays.copyOfRange(args, 1, args.length));
-            } else {
-                MessageSender.sendMessage(message.getChannel(), "Mauvais channel ou permission manquante.");
-            }
-
-        } else {
-
-            MessageSender.sendMessage(message.getChannel(), "<*help> pour obtenir la liste des commandes disponibles.");
-
-            /* CustomCommandData customCommandData = new CustomCommandDAO(this.databaseConnection).get(args[0]);
-
-            if (customCommandData != null) {
-                message.getChannel().sendMessage(customCommandData.text).queue();
-            } */
-
+            executeCommand(message, args, optionalAccessRestricted.get());
+            return;
         }
 
+        MessageSender.sendMessage(message.getChannel(), "<*help> pour obtenir la liste des commandes disponibles.");
+    }
+
+    private void executeCommand(Message message, String[] args, CommandRestricted commandRestricted) {
+
+        if (canExecute(commandRestricted, message)) {
+            commandRestricted.execute(message, Arrays.copyOfRange(args, 1, args.length));
+            return;
+        }
+
+        MessageSender.sendMessage(message.getChannel(), "Mauvais channel ou permission manquante.");
     }
 
     private boolean canExecute(CommandRestricted commandExecutor, Message message) {
         return commandExecutor.isAuthorizedChannel(message.getChannel())
-                && (message.getChannelType() == net.dv8tion.jda.core.entities.ChannelType.PRIVATE || commandExecutor.isAuthorizedMember(message.getMember()));
+                && (message.getChannelType() == net.dv8tion.jda.core.entities.ChannelType.PRIVATE
+                        || commandExecutor.isAuthorizedMember(message.getMember()));
     }
 
 }

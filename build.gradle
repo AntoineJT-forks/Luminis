@@ -39,5 +39,8 @@ dependencies {
     implementation "net.dv8tion:JDA:$jdaVersion"
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'postgresql:postgresql:9.4.1208-jdbc42-atlassian-hosted'
-    implementation group: 'com.zaxxer', name: 'HikariCP', version: '3.3.1'
+    implementation 'com.zaxxer:HikariCP:3.3.1'
+    implementation 'org.jooq:jooq:3.11.11'
+    implementation 'org.jooq:jooq-meta:3.11.11'
+    implementation 'org.jooq:jooq-codegen:3.11.11'
 }

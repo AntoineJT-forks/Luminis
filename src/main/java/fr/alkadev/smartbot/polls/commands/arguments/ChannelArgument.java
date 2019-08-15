@@ -1,10 +1,8 @@
 package fr.alkadev.smartbot.polls.commands.arguments;
 
-import fr.alkadev.smartbot.commands.ChannelType;
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
-import fr.alkadev.smartbot.system.managers.ChannelsIdsManager;
-import fr.alkadev.smartbot.system.managers.GuildsIdsManager;
 import fr.alkadev.smartbot.system.managers.SmartBotManager;
+import fr.alkadev.smartbot.system.model.GuildChannelsIds;
 import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.*;
@@ -13,13 +11,14 @@ import java.util.List;
 
 public class ChannelArgument extends PollCommandArgument {
 
-    private final ChannelsIdsManager channelsIdsManager;
-    private final GuildsIdsManager guildsIdsManager;
+    private final SmartBotManager<GuildChannelsIds, Integer> channelsIdsManager;
+    private final SmartBotManager<Integer, Long> guildsIdsManager;
 
+    @SuppressWarnings("unchecked")
     public ChannelArgument(SmartBotManager channelsIdsManager, SmartBotManager guildsIdsManager) {
         super(null);
-        this.channelsIdsManager = (ChannelsIdsManager) channelsIdsManager;
-        this.guildsIdsManager = (GuildsIdsManager) guildsIdsManager;
+        this.channelsIdsManager = (SmartBotManager<GuildChannelsIds, Integer>) channelsIdsManager;
+        this.guildsIdsManager = (SmartBotManager<Integer, Long>) guildsIdsManager;
     }
 
     @Override
@@ -34,7 +33,7 @@ public class ChannelArgument extends PollCommandArgument {
 
     @Override
     public boolean isAuthorizedChannel(MessageChannel messageChannel) {
-        return ChannelType.GUILD.isAuthorizedChannel(this, messageChannel);
+        return messageChannel.getType() == ChannelType.TEXT;
     }
 
     @Override
@@ -47,18 +46,15 @@ public class ChannelArgument extends PollCommandArgument {
 
         List<TextChannel> mentionedChannels = message.getMentionedChannels();
 
-        if (mentionedChannels.size() == 0) {
-            MessageSender.sendMessage(message.getChannel(), "*poll channel <#mention du channel>");
+        if (mentionedChannels.size() != 0) {
+            int guildId = this.guildsIdsManager.get(message.getGuild().getIdLong());
+
+            this.channelsIdsManager.get(guildId).put("polls", mentionedChannels.get(0).getIdLong());
+            MessageSender.sendMessage(message.getChannel(), "Le salon des sondages a bien été défini à " + mentionedChannels.get(0).getAsMention() + ".");
             return;
         }
 
-        int guildId = this.guildsIdsManager.get(message.getGuild().getIdLong()).orElse(0);
-
-        this.channelsIdsManager.get(guildId).ifPresent(map -> {
-            map.put("polls", mentionedChannels.get(0).getIdLong());
-            MessageSender.sendMessage(message.getChannel(), "Le salon des sondages a bien été défini à " + mentionedChannels.get(0).getAsMention() + ".");
-        });
-
+        MessageSender.sendMessage(message.getChannel(), "*poll channel <#mention du channel>");
     }
 
 }

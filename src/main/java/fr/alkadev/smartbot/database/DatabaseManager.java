@@ -1,6 +1,5 @@
 package fr.alkadev.smartbot.database;
 
-import fr.alkadev.smartbot.system.managers.GuildsIdsManager;
 import fr.alkadev.smartbot.system.managers.SmartBotManagers;
 import fr.alkadev.smartbot.utils.configuration.Configuration;
 
@@ -27,45 +26,35 @@ public class DatabaseManager {
     public void load() {
         try (Connection connection = this.databaseConnection.getConnection()) {
 
-            for (DatabaseSaver databaseSaver : this.smartBotManagers.getSavers()) {
-                databaseSaver.load(connection);
-            }
+            loadManagers(connection);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadManagers(Connection connection) throws SQLException {
+
+        for (DatabaseSaver databaseSaver : this.smartBotManagers.getSavers())
+            databaseSaver.load(connection);
+
     }
 
     public void save() {
         try (Connection connection = this.databaseConnection.getConnection()) {
 
-            for (DatabaseSaver databaseSaver : this.smartBotManagers.getSavers()) {
-                databaseSaver.save(connection);
-            }
+            saveManagers(connection);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void saveGuildsIds() {
-        try (Connection connection = this.databaseConnection.getConnection()) {
+    private void saveManagers(Connection connection) throws SQLException {
 
-            ((DatabaseSaver) this.smartBotManagers.getManager(GuildsIdsManager.class)).save(connection);
+        for (DatabaseSaver databaseSaver : this.smartBotManagers.getSavers())
+            databaseSaver.save(connection);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void loadGuildsIds() {
-        try (Connection connection = this.databaseConnection.getConnection()) {
-
-            ((DatabaseSaver) this.smartBotManagers.getManager(GuildsIdsManager.class)).load(connection);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
 }

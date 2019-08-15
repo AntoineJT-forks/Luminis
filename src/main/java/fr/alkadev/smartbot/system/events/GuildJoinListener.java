@@ -1,26 +1,35 @@
 package fr.alkadev.smartbot.system.events;
 
 import fr.alkadev.smartbot.events.Listener;
-import fr.alkadev.smartbot.system.managers.GuildsIdsManager;
 import fr.alkadev.smartbot.system.managers.SmartBotManager;
+import fr.alkadev.smartbot.system.model.GuildChannelsIds;
+import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
 
 public class GuildJoinListener implements Listener<GuildJoinEvent> {
 
-    private final GuildsIdsManager guildsIdsManager;
+    private final SmartBotManager<Integer, Long> guildsIdsManager;
+    private final SmartBotManager<GuildChannelsIds, Integer> channelsIdsManager;
 
-    public GuildJoinListener(SmartBotManager guildsIdsManager) {
-        this.guildsIdsManager = (GuildsIdsManager) guildsIdsManager;
+    @SuppressWarnings("unchecked")
+    public GuildJoinListener(SmartBotManager guildsIdsManager, SmartBotManager channelsIdsManager) {
+        this.guildsIdsManager = guildsIdsManager;
+        this.channelsIdsManager = channelsIdsManager;
     }
 
     @Override
-    public Class<GuildJoinEvent> getEventClass() {
-        return GuildJoinEvent.class;
+    public boolean isSameEvent(Class<? extends Event> eventClass) {
+        return GuildJoinEvent.class.equals(eventClass);
     }
 
     @Override
     public void executeListener(GuildJoinEvent event) {
-        this.guildsIdsManager.add(event.getGuild().getIdLong(), 0);
+        long guildId = event.getGuild().getIdLong();
+
+        this.guildsIdsManager.add(guildId, 0);
+        this.channelsIdsManager.add(this.guildsIdsManager.get(guildId), new GuildChannelsIds());
+
+        this.channelsIdsManager.get(this.guildsIdsManager.get(guildId)).put("default", event.getGuild().getSystemChannel().getIdLong());
     }
 
 }

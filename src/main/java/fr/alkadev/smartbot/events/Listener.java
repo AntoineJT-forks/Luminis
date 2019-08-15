@@ -4,7 +4,7 @@ import net.dv8tion.jda.core.events.Event;
 
 public interface Listener<T extends Event> {
 
-    Class<T> getEventClass();
+    boolean isSameEvent(Class<? extends Event> eventClass);
 
     void executeListener(T event);
 

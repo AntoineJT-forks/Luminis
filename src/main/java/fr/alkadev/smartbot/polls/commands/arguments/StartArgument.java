@@ -1,10 +1,10 @@
 package fr.alkadev.smartbot.polls.commands.arguments;
 
-import fr.alkadev.smartbot.commands.ChannelType;
 import fr.alkadev.smartbot.polls.Poll;
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
 import fr.alkadev.smartbot.system.managers.SmartBotManager;
 import fr.alkadev.smartbot.utils.MessageSender;
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
@@ -26,7 +26,7 @@ public class StartArgument extends PollCommandArgument {
 
     @Override
     public boolean isAuthorizedChannel(MessageChannel messageChannel) {
-        return ChannelType.GUILD.isAuthorizedChannel(this, messageChannel);
+        return messageChannel.getType() == ChannelType.TEXT;
     }
 
     @Override

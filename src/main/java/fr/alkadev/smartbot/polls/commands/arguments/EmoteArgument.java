@@ -6,11 +6,7 @@ import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 
-import java.util.function.BiConsumer;
-
 public class EmoteArgument extends PollCommandArgument {
-
-    private final String errorMessage = "*poll emote <numéro du choix> <emote>.";
 
     public EmoteArgument(SmartBotManager pollsManager) {
         super(pollsManager);
@@ -32,15 +28,26 @@ public class EmoteArgument extends PollCommandArgument {
     }
 
     private void getAction(Message message, String[] args) {
-        BiConsumer<Message, String[]> action;
 
-        action = (sentMessage, sentArgs) -> MessageSender.sendPrivateMessage(message.getAuthor(), errorMessage);
-
-        if (args.length != 2 && args[0].matches("[0-9]+")) {
-            action = this::setEmote;
+        if (this.areArgsCorrects(args)) {
+            this.setEmote(message, args);
+            return;
         }
 
-        action.accept(message, args);
+        String errorMessage = "*poll emote <numéro du choix> <emote>.";
+        MessageSender.sendPrivateMessage(message.getAuthor(), errorMessage);
+    }
+
+    private boolean areArgsCorrects(String[] args) {
+
+        try {
+            Integer.parseInt(args[0]);
+            String.valueOf(args[1]);
+            return true;
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException ignored) {
+            return false;
+        }
+
     }
 
     private void setEmote(Message message, String[] args) {
@@ -48,8 +55,7 @@ public class EmoteArgument extends PollCommandArgument {
         User user = message.getAuthor();
         int choiceNumber = Integer.parseInt(args[0]);
 
-        this.pollsManager.get(user.getIdLong()).ifPresent(poll -> poll.setEmote(choiceNumber, args[1]));
-
+        this.pollsManager.get(user.getIdLong()).setEmote(choiceNumber, args[1]);
         MessageSender.sendPrivateMessage(user, "Le choix numéro " + choiceNumber + " a bien été enregistré.");
     }
 

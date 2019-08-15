@@ -3,7 +3,6 @@ package fr.alkadev.smartbot.polls;
 import fr.alkadev.smartbot.system.managers.SmartBotManager;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 public class PollsManager implements SmartBotManager<Poll, Long> {
 
@@ -19,8 +18,8 @@ public class PollsManager implements SmartBotManager<Poll, Long> {
     }
 
     @Override
-    public Optional<Poll> get(Long userId) {
-        return Optional.ofNullable(this.polls.get(userId));
+    public Poll get(Long userId) {
+        return this.polls.get(userId);
     }
 
     @Override

@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class GuildsIdsManager implements SmartBotManager<Integer, Long>, DatabaseSaver {
 
@@ -24,8 +23,8 @@ public class GuildsIdsManager implements SmartBotManager<Integer, Long>, Databas
         return this.guildsIds.containsKey(guildId);
     }
 
-    public Optional<Integer> get(Long guildId) {
-        return Optional.ofNullable(this.guildsIds.get(guildId));
+    public Integer get(Long guildId) {
+        return this.guildsIds.get(guildId);
     }
 
     public void add(Long guildId, Integer id) {
@@ -43,11 +42,9 @@ public class GuildsIdsManager implements SmartBotManager<Integer, Long>, Databas
 
         for (Map.Entry<Long, Integer> entry : this.guildsIds.entrySet()) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO guilds_ids(id, guild_id) VALUES(?, ?) ON CONFLICT DO NOTHING");
-
-            preparedStatement.setInt(1, entry.getValue());
-            preparedStatement.setString(2, String.valueOf(entry.getKey()));
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds_ids(guild_id, id) VALUES(?, ?)");
+            preparedStatement.setString(1, String.valueOf(entry.getKey()));
+            preparedStatement.setInt(2, entry.getValue());
 
             preparedStatement.execute();
 
@@ -70,7 +67,6 @@ public class GuildsIdsManager implements SmartBotManager<Integer, Long>, Databas
             this.index = id;
 
             this.add(guildId, 0);
-
 
         }
 

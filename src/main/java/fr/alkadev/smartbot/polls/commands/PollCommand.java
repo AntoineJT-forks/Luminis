@@ -34,25 +34,25 @@ public class PollCommand implements CommandRestricted {
         Optional<PollCommandArgument> optionalPollCommandArgument = this.pollCommandArgumentsManager.getArgumentByName(args[0]);
 
         if (optionalPollCommandArgument.isPresent()) {
-
-            PollCommandArgument pollCommandArgument = optionalPollCommandArgument.get();
-
-            if (this.canExecute(pollCommandArgument, message)) {
-                pollCommandArgument.execute(message, Arrays.copyOfRange(args, 1, args.length));
-            }
-
-        } else {
-
-            MessageSender.sendMessage(message.getChannel(), "<*poll help> pour obtenir la liste des arguments disponibles.");
-
+            this.executeCommandArgument(message, args, optionalPollCommandArgument.get());
+            return;
         }
 
+        MessageSender.sendMessage(message.getChannel(), "<*poll help> pour obtenir la liste des arguments disponibles.");
+    }
+
+    private void executeCommandArgument(Message message, String[] args, PollCommandArgument pollCommandArgument) {
+
+        if (this.canExecute(pollCommandArgument, message)) {
+            pollCommandArgument.execute(message, Arrays.copyOfRange(args, 1, args.length));
+            return;
+        }
+
+        MessageSender.sendMessage(message.getChannel(), "Vous ne pouvez pas éxécuter cette commande.");
     }
 
     private boolean canExecute(CommandRestricted commandExecutor, Message message) {
-        return commandExecutor.isAuthorizedChannel(message.getChannel())
-                && (message.getChannelType() == net.dv8tion.jda.core.entities.ChannelType.PRIVATE || commandExecutor.isAuthorizedMember(message.getMember()));
+        return commandExecutor.isAuthorizedChannel(message.getChannel()) && commandExecutor.isAuthorizedMember(message.getMember());
     }
-
 
 }

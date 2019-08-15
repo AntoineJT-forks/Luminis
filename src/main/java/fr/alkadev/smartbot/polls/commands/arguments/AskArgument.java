@@ -21,7 +21,7 @@ public class AskArgument extends PollCommandArgument {
     }
 
     protected void executeHasPollAction(Message message, String[] args) {
-        this.pollsManager.get(message.getAuthor().getIdLong()).ifPresent(poll -> poll.setQuestion(String.join(" ", args)));
+        this.pollsManager.get(message.getAuthor().getIdLong()).setQuestion(String.join(" ", args));
         super.executeHasPollAction(message, args);
     }
 

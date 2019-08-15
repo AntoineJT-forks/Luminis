@@ -27,50 +27,50 @@ public class ChoiceArgument extends PollCommandArgument {
     @Override
     protected void executeHasPollAction(Message message, String[] args) {
 
-        boolean isFirstArgCorrect;
+        if (this.isFirstArgCorrect(args)) {
+            this.executeChoiceAction(message, args);
+            return;
+        }
+
+        String errorMessage = "*poll choice <numéro du choix> <optionnel : description du choix>.";
+        MessageSender.sendPrivateMessage(message.getAuthor(), errorMessage);
+    }
+
+    private boolean isFirstArgCorrect(String[] args) {
 
         try {
             Integer.parseInt(args[0]);
-            isFirstArgCorrect = true;
+            return true;
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException ignored) {
-            isFirstArgCorrect = false;
-        }
-
-        if (isFirstArgCorrect) {
-            this.executeChoiceAction(message, args);
-        } else {
-            String errorMessage = "*poll choice <numéro du choix> <optionnel : description du choix>.";
-            MessageSender.sendPrivateMessage(message.getAuthor(), errorMessage);
+            return false;
         }
 
     }
 
     private void executeChoiceAction(Message message, String[] args) {
 
-        if (this.getChoice(args).isEmpty()) {
-            this.removeChoice(message, args);
-        } else {
+        if (!this.getChoice(args).isEmpty()) {
             this.setChoice(message, args);
+            return;
         }
 
-    }
-
-    private void removeChoice(Message message, String[] args) {
-        User user = message.getAuthor();
-        int choiceNumber = Integer.parseInt(args[0]);
-
-        this.pollsManager.get(user.getIdLong()).ifPresent(poll -> poll.removeChoice(choiceNumber));
-
-        MessageSender.sendPrivateMessage(user, "Le choix numéro " + choiceNumber + " a bien été supprimé.");
+        this.removeChoice(message, args);
     }
 
     private void setChoice(Message message, String[] args) {
         User user = message.getAuthor();
         int choiceNumber = Integer.parseInt(args[0]);
 
-        this.pollsManager.get(user.getIdLong()).ifPresent(poll -> poll.setChoice(choiceNumber, this.getChoice(args)));
-
+        this.pollsManager.get(user.getIdLong()).setChoice(choiceNumber, this.getChoice(args));
         MessageSender.sendPrivateMessage(user, "Le choix numéro " + choiceNumber + " a bien été enregistré.");
+    }
+
+    private void removeChoice(Message message, String[] args) {
+        User user = message.getAuthor();
+        int choiceNumber = Integer.parseInt(args[0]);
+
+        this.pollsManager.get(user.getIdLong()).removeChoice(choiceNumber);
+        MessageSender.sendPrivateMessage(user, "Le choix numéro " + choiceNumber + " a bien été supprimé.");
     }
 
     private String getChoice(String[] args) {
