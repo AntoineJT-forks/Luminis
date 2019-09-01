@@ -10,9 +10,8 @@ public abstract class PollCommandArgument implements CommandRestricted {
 
     protected final SmartBotManager<PollBuilder, Long> pollsManager;
 
-    @SuppressWarnings("unchecked cast")
-    protected PollCommandArgument(SmartBotManager pollsManager) {
-        this.pollsManager = (SmartBotManager<PollBuilder, Long>) pollsManager;
+    protected PollCommandArgument(SmartBotManager<PollBuilder, Long> pollsManager) {
+        this.pollsManager = pollsManager;
     }
 
     @Override

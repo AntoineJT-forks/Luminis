@@ -11,13 +11,13 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import java.util.Arrays;
 import java.util.List;
 
-public class SmartBotListener extends ListenerManager {
+class SmartBotListener extends ListenerManager {
 
     private DatabaseManager databaseManager;
     private SmartBotManagers smartBotManagers;
     private CommandsManager commandsManager;
 
-    public SmartBotListener(SmartBotListenerBuilder builder) {
+    SmartBotListener(SmartBotListenerBuilder builder) {
         this.databaseManager = builder.databaseManager;
         this.smartBotManagers = builder.smartBotManagers;
         this.commandsManager = builder.commandsManager;

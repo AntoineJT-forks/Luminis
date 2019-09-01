@@ -1,7 +1,6 @@
 package fr.alkadev.smartbot.commands.commandsmanagers;
 
 import fr.alkadev.smartbot.commands.CommandRestricted;
-import fr.alkadev.smartbot.system.managers.SmartBotManagers;
 import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
@@ -11,12 +10,6 @@ import java.util.Optional;
 
 public abstract class CommandsManager {
 
-    private final List<CommandRestricted> commands;
-
-    CommandsManager(SmartBotManagers smartBotManagers) {
-        this.commands = this.getCommands(smartBotManagers);
-    }
-
     public void executeCommand(Message message) {
 
         String content = message.getContentRaw();
@@ -25,13 +18,13 @@ public abstract class CommandsManager {
 
         String[] args = content.substring(1).split(" +");
 
-        Optional<CommandRestricted> optionalAccessRestricted = this.commands
+        Optional<CommandRestricted> optionalAccessRestricted = this.getCommands()
                 .stream()
                 .filter(commandRestricted -> commandRestricted.getCommand().equalsIgnoreCase(args[0]))
                 .findAny();
 
         if (optionalAccessRestricted.isPresent()) {
-            executeCommand(message, args, optionalAccessRestricted.get());
+            this.executeCommand(message, args, optionalAccessRestricted.get());
             return;
         }
 
@@ -40,7 +33,7 @@ public abstract class CommandsManager {
 
     private void executeCommand(Message message, String[] args, CommandRestricted commandRestricted) {
 
-        if (canExecute(commandRestricted, message)) {
+        if (this.canExecute(commandRestricted, message)) {
             commandRestricted.execute(message, Arrays.copyOfRange(args, 1, args.length));
             return;
         }
@@ -54,6 +47,6 @@ public abstract class CommandsManager {
                 || commandExecutor.isAuthorizedMember(message.getMember()));
     }
 
-    protected abstract List<CommandRestricted> getCommands(SmartBotManagers smartBotManagers);
+    protected abstract List<CommandRestricted> getCommands();
 
 }

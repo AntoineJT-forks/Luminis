@@ -1,5 +1,6 @@
 package fr.alkadev.smartbot.polls.commands.arguments;
 
+import fr.alkadev.smartbot.polls.PollBuilder;
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
 import fr.alkadev.smartbot.system.managers.SmartBotManager;
 import fr.alkadev.smartbot.utils.MessageSender;
