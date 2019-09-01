@@ -1,8 +1,7 @@
 package fr.alkadev.smartbot;
 
 import fr.alkadev.smartbot.database.DatabaseManager;
-import fr.alkadev.smartbot.system.managers.SmartBotManagers;
-import fr.alkadev.smartbot.events.ListenersManager;
+import fr.alkadev.smartbot.events.ListenerManager;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import org.slf4j.Logger;
@@ -14,16 +13,14 @@ class SmartBot {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SmartBot.class);
 
-    private final SmartBotManagers smartBotManagers;
     private final DatabaseManager databaseManager;
     private JDA jda;
 
-    SmartBot(SmartBotManagers smartBotManagers, DatabaseManager databaseManager) {
-        this.smartBotManagers = smartBotManagers;
+    SmartBot(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
     }
 
-    void start(String token, ListenersManager listenersManager) {
+    void start(String token, ListenerManager listenerManager) {
         try {
 
             this.databaseManager.load();
@@ -31,7 +28,7 @@ class SmartBot {
             this.jda = new JDABuilder(token)
                     .build();
 
-            listenersManager.saveListeners(jda);
+            listenerManager.saveListeners(jda);
 
             LOGGER.info("Bot connected");
 
