@@ -1,32 +1,34 @@
-package fr.alkadev.smartbot.commands;
+package fr.alkadev.smartbot.commands.commandsmanagers;
 
-
+import fr.alkadev.smartbot.commands.CommandRestricted;
 import fr.alkadev.smartbot.system.managers.SmartBotManagers;
 import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
-class CommandExecutor {
+public abstract class CommandsManager {
 
-    private CommandsManager commandManager;
-    private char prefix;
+    private final List<CommandRestricted> commands;
 
-    CommandExecutor(char prefix, SmartBotManagers smartBotManagers) {
-        this.commandManager = new CommandsManager(smartBotManagers);
-        this.prefix = prefix;
+    CommandsManager(SmartBotManagers smartBotManagers) {
+        this.commands = this.getCommands(smartBotManagers);
     }
 
-    void executeCommand(Message message) {
+    public void executeCommand(Message message) {
 
         String content = message.getContentRaw();
 
-        if (content.length() == 0 || content.charAt(0) != this.prefix) return;
+        if (content.length() == 0 || content.charAt(0) != '*') return;
 
         String[] args = content.substring(1).split(" +");
 
-        Optional<CommandRestricted> optionalAccessRestricted = this.commandManager.getCommandExecutorByName(args[0]);
+        Optional<CommandRestricted> optionalAccessRestricted = this.commands
+                .stream()
+                .filter(commandRestricted -> commandRestricted.getCommand().equalsIgnoreCase(args[0]))
+                .findAny();
 
         if (optionalAccessRestricted.isPresent()) {
             executeCommand(message, args, optionalAccessRestricted.get());
@@ -49,7 +51,9 @@ class CommandExecutor {
     private boolean canExecute(CommandRestricted commandExecutor, Message message) {
         return commandExecutor.isAuthorizedChannel(message.getChannel())
                 && (message.getChannelType() == net.dv8tion.jda.core.entities.ChannelType.PRIVATE
-                        || commandExecutor.isAuthorizedMember(message.getMember()));
+                || commandExecutor.isAuthorizedMember(message.getMember()));
     }
+
+    protected abstract List<CommandRestricted> getCommands(SmartBotManagers smartBotManagers);
 
 }

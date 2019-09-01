@@ -1,5 +1,6 @@
 package fr.alkadev.smartbot;
 
+import fr.alkadev.smartbot.commands.commandsmanagers.SmartBotCommandsManager;
 import fr.alkadev.smartbot.database.DatabaseManager;
 import fr.alkadev.smartbot.events.ListenersManager;
 import fr.alkadev.smartbot.system.managers.SmartBotManagers;
@@ -35,7 +36,7 @@ class SmartBot {
             this.databaseManager.load();
 
             this.jda = new JDABuilder(this.configuration.token)
-                    .addEventListener(new SmartBotListener(new ListenersManager(this.configuration.prefix, databaseManager, smartBotManagers)))
+                    .addEventListener(new SmartBotListener(new ListenersManager(databaseManager, smartBotManagers, new SmartBotCommandsManager(smartBotManagers))))
                     .build();
 
             LOGGER.info("Bot connected");
