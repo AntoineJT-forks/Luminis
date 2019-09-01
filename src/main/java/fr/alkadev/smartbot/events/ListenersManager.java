@@ -1,35 +1,25 @@
 package fr.alkadev.smartbot.events;
 
-import fr.alkadev.smartbot.commands.MessageReceivedListener;
 import fr.alkadev.smartbot.commands.commandsmanagers.CommandsManager;
 import fr.alkadev.smartbot.database.DatabaseManager;
-import fr.alkadev.smartbot.system.events.GuildJoinListener;
-import fr.alkadev.smartbot.system.events.ReadyListener;
-import fr.alkadev.smartbot.system.managers.ChannelsIdsManager;
-import fr.alkadev.smartbot.system.managers.GuildsIdsManager;
 import fr.alkadev.smartbot.system.managers.SmartBotManagers;
-import net.dv8tion.jda.core.events.Event;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
-public class ListenersManager {
+public abstract class ListenersManager {
 
-    private final List<Listener> listeners;
+    private final List<ListenerAdapter> listenerAdapters;
 
     public ListenersManager(DatabaseManager databaseManager, SmartBotManagers smartBotManagers, CommandsManager commandsManager) {
-        this.listeners = Arrays.asList(
-                new ReadyListener(databaseManager),
-                new MessageReceivedListener(commandsManager),
-                new GuildJoinListener(smartBotManagers.getManager(GuildsIdsManager.class), smartBotManagers.getManager(ChannelsIdsManager.class))
-        );
+        this.listenerAdapters = this.getListeners(databaseManager, smartBotManagers, commandsManager);
     }
 
-    Stream<Listener> getListenersByClass(Class<? extends Event> eventClass) {
-        return this.listeners
-                .stream()
-                .filter(listener -> listener.isSameEvent(eventClass));
+    protected abstract List<ListenerAdapter> getListeners(DatabaseManager databaseManager, SmartBotManagers smartBotManagers, CommandsManager commandsManager);
+
+    public void saveListeners(JDA jda) {
+        this.listenerAdapters.forEach(jda::addEventListener);
     }
 
 }

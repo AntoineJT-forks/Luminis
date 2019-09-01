@@ -19,7 +19,7 @@ public class SmartBotManagers {
         );
     }
 
-    public SmartBotManager getManager(Class<? extends SmartBotManager> managerClass) {
+    public <T, U> SmartBotManager<T, U> getManager(Class<? extends SmartBotManager<T, U>> managerClass) {
         return this.savers
                 .stream()
                 .filter(manager -> manager.getClass().equals(managerClass))

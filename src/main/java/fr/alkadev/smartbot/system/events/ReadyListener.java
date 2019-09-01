@@ -2,13 +2,12 @@ package fr.alkadev.smartbot.system.events;
 
 import fr.alkadev.smartbot.database.DatabaseManager;
 import fr.alkadev.smartbot.database.task.DatabaseTask;
-import fr.alkadev.smartbot.events.Listener;
-import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.ReadyEvent;
+import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.Timer;
 
-public class ReadyListener implements Listener<ReadyEvent> {
+public class ReadyListener extends ListenerAdapter {
 
     private final DatabaseManager databaseManager;
 
@@ -17,12 +16,7 @@ public class ReadyListener implements Listener<ReadyEvent> {
     }
 
     @Override
-    public boolean isSameEvent(Class<? extends Event> eventClass) {
-        return ReadyEvent.class.equals(eventClass);
-    }
-
-    @Override
-    public void executeListener(ReadyEvent event) {
+    public void onReady(ReadyEvent event) {
         int tenMinutesPeriod = 1_000 * 60 * 10;
         new Thread(() -> new Timer().schedule(new DatabaseTask(this.databaseManager), 0, 3000)).start();
     }

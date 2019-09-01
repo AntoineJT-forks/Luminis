@@ -1,43 +1,37 @@
 package fr.alkadev.smartbot;
 
-import fr.alkadev.smartbot.commands.commandsmanagers.SmartBotCommandsManager;
 import fr.alkadev.smartbot.database.DatabaseManager;
-import fr.alkadev.smartbot.events.ListenersManager;
 import fr.alkadev.smartbot.system.managers.SmartBotManagers;
-import fr.alkadev.smartbot.events.SmartBotListener;
-import fr.alkadev.smartbot.utils.configuration.Configuration;
-import fr.alkadev.smartbot.utils.configuration.ConfigurationLoader;
+import fr.alkadev.smartbot.events.ListenersManager;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.security.auth.login.LoginException;
-import java.io.File;
 
 class SmartBot {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SmartBot.class);
 
-    private final Configuration configuration;
     private final SmartBotManagers smartBotManagers;
     private final DatabaseManager databaseManager;
     private JDA jda;
 
-    SmartBot() {
-        this.configuration = ConfigurationLoader.loadFrom(new File("configuration.json"));
-        this.smartBotManagers = new SmartBotManagers();
-        this.databaseManager = new DatabaseManager(this.configuration, this.smartBotManagers);
+    SmartBot(SmartBotManagers smartBotManagers, DatabaseManager databaseManager) {
+        this.smartBotManagers = smartBotManagers;
+        this.databaseManager = databaseManager;
     }
 
-    void start() {
+    void start(String token, ListenersManager listenersManager) {
         try {
 
             this.databaseManager.load();
 
-            this.jda = new JDABuilder(this.configuration.token)
-                    .addEventListener(new SmartBotListener(new ListenersManager(databaseManager, smartBotManagers, new SmartBotCommandsManager(smartBotManagers))))
+            this.jda = new JDABuilder(token)
                     .build();
+
+            listenersManager.saveListeners(jda);
 
             LOGGER.info("Bot connected");
 
