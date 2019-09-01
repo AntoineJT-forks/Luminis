@@ -12,13 +12,13 @@ sourceCompatibility = 1.8
 jar {
     manifest {
         attributes(
-                'Main-Class': 'fr.alkadev.smartbot.Main'
+                'Main-Class': 'fr.alkadev.luminis.Main'
         )
     }
 }
 
 shadowJar {
-    shadowJar.setArchiveName("SmartBot.jar")
+    shadowJar.setArchiveName("Luminis.jar")
 }
 
 compileJava.options.encoding = 'UTF-8'
@@ -27,7 +27,7 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-archivesBaseName = 'SmartBot'
+archivesBaseName = 'Luminis'
 
 repositories {
     mavenCentral()
