@@ -2,7 +2,7 @@ package fr.alkadev.luminis.commands.commandsmanagers;
 
 import fr.alkadev.luminis.commands.CommandRestricted;
 import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +43,7 @@ public abstract class CommandsManager {
 
     private boolean canExecute(CommandRestricted commandExecutor, Message message) {
         return commandExecutor.isAuthorizedChannel(message.getChannel())
-                && (message.getChannelType() == net.dv8tion.jda.core.entities.ChannelType.PRIVATE
+                && (message.getChannelType() == net.dv8tion.jda.api.entities.ChannelType.PRIVATE
                 || commandExecutor.isAuthorizedMember(message.getMember()));
     }
 

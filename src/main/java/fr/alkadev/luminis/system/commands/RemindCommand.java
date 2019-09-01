@@ -3,8 +3,8 @@ package fr.alkadev.luminis.system.commands;
 import fr.alkadev.luminis.commands.CommandRestricted;
 import fr.alkadev.luminis.utils.MessageSender;
 import fr.alkadev.luminis.utils.TimeParser;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;

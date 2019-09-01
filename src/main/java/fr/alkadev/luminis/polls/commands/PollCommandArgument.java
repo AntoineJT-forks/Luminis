@@ -4,7 +4,8 @@ import fr.alkadev.luminis.commands.CommandRestricted;
 import fr.alkadev.luminis.polls.PollBuilder;
 import fr.alkadev.luminis.system.managers.LuminisManager;
 import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 
 public abstract class PollCommandArgument implements CommandRestricted {
 
@@ -30,5 +31,9 @@ public abstract class PollCommandArgument implements CommandRestricted {
     }
 
     protected void executeHasPollAction(Message message, String[] args) {}
+
+    protected void updatePoll(User user) {
+
+    }
 
 }

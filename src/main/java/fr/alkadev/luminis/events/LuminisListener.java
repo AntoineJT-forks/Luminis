@@ -6,7 +6,7 @@ import fr.alkadev.luminis.database.DatabaseManager;
 import fr.alkadev.luminis.system.events.GuildJoinListener;
 import fr.alkadev.luminis.system.events.ReadyListener;
 import fr.alkadev.luminis.system.managers.LuminisManagers;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Arrays;
 import java.util.List;

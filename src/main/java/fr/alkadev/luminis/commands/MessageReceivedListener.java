@@ -1,8 +1,8 @@
 package fr.alkadev.luminis.commands;
 
 import fr.alkadev.luminis.commands.commandsmanagers.CommandsManager;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class MessageReceivedListener extends ListenerAdapter {
 

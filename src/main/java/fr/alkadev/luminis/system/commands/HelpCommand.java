@@ -3,7 +3,7 @@ package fr.alkadev.luminis.system.commands;
 import fr.alkadev.luminis.commands.Command;
 import fr.alkadev.luminis.commands.CommandRestricted;
 import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,7 +5,7 @@ plugins {
 
 group 'fr.alkadev'
 version '0.1.0'
-def jdaVersion = '3.8.3_460'
+def jdaVersion = '4.0.0_45'
 
 sourceCompatibility = 1.8
 

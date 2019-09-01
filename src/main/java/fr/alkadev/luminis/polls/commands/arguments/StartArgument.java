@@ -4,9 +4,9 @@ import fr.alkadev.luminis.polls.PollBuilder;
 import fr.alkadev.luminis.polls.commands.PollCommandArgument;
 import fr.alkadev.luminis.system.managers.LuminisManager;
 import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.core.entities.ChannelType;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 
 public class StartArgument extends PollCommandArgument {
 
@@ -34,6 +34,8 @@ public class StartArgument extends PollCommandArgument {
         MessageSender.sendPrivateMessage(message.getAuthor(), "Création d'un sondage.",
                 sentMessage -> this.pollsManager.add(message.getAuthor().getIdLong(), new PollBuilder().withGuildId(message.getGuild().getIdLong())),
                 throwable -> MessageSender.sendMessage(message.getChannel(), message.getAuthor().getAsMention() + ", vérifez que vos mp sont ouverts pour pouvoir démarrer la création d'un sondage."));
+
+        super.updatePoll(message.getAuthor());
     }
 
     @Override

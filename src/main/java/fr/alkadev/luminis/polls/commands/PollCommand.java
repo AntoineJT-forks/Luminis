@@ -3,7 +3,7 @@ package fr.alkadev.luminis.polls.commands;
 import fr.alkadev.luminis.commands.CommandRestricted;
 import fr.alkadev.luminis.system.managers.LuminisManagers;
 import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.util.Arrays;
 import java.util.Optional;

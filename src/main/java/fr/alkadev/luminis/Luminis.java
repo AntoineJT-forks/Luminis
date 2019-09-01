@@ -2,8 +2,8 @@ package fr.alkadev.luminis;
 
 import fr.alkadev.luminis.database.DatabaseManager;
 import fr.alkadev.luminis.events.ListenerManager;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,14 +21,14 @@ class Luminis {
     }
 
     void start(String token, ListenerManager listenerManager) {
-        try {
 
-            this.databaseManager.load();
+        try {
 
             this.jda = new JDABuilder(token)
                     .build();
 
             listenerManager.saveListeners(jda);
+            this.databaseManager.load();
 
             LOGGER.info("Bot connected");
 

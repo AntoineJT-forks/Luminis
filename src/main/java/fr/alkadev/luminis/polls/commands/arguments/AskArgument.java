@@ -3,7 +3,8 @@ package fr.alkadev.luminis.polls.commands.arguments;
 import fr.alkadev.luminis.polls.commands.PollCommandArgument;
 import fr.alkadev.luminis.system.managers.LuminisManager;
 import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
+
 
 public class AskArgument extends PollCommandArgument {
 

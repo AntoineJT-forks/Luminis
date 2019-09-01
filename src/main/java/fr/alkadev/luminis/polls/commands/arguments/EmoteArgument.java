@@ -3,8 +3,8 @@ package fr.alkadev.luminis.polls.commands.arguments;
 import fr.alkadev.luminis.polls.commands.PollCommandArgument;
 import fr.alkadev.luminis.system.managers.LuminisManager;
 import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 
 public class EmoteArgument extends PollCommandArgument {
 
@@ -56,7 +56,7 @@ public class EmoteArgument extends PollCommandArgument {
         int choiceNumber = Integer.parseInt(args[0]);
 
         this.pollsManager.get(user.getIdLong()).addEmote(choiceNumber, args[1]);
-        MessageSender.sendPrivateMessage(user, "Le choix numéro " + choiceNumber + " a bien été enregistré.");
+        MessageSender.sendPrivateMessage(user, "L'emote du choix numéro " + choiceNumber + " a bien été enregistré.");
     }
 
 }

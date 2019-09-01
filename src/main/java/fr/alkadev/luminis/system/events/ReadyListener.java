@@ -2,8 +2,8 @@ package fr.alkadev.luminis.system.events;
 
 import fr.alkadev.luminis.database.DatabaseManager;
 import fr.alkadev.luminis.database.task.DatabaseTask;
-import net.dv8tion.jda.core.events.ReadyEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Timer;
 
