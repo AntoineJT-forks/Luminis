@@ -4,12 +4,12 @@ import fr.alkadev.smartbot.system.managers.SmartBotManager;
 
 import java.util.HashMap;
 
-public class PollsManager implements SmartBotManager<Poll, Long> {
+public class PollsManager implements SmartBotManager<PollBuilder, Long> {
 
-    private final HashMap<Long, Poll> polls;
+    private final HashMap<Long, PollBuilder> polls;
 
     public PollsManager() {
-        polls = new HashMap<>();
+        this.polls = new HashMap<>();
     }
 
     @Override
@@ -18,12 +18,12 @@ public class PollsManager implements SmartBotManager<Poll, Long> {
     }
 
     @Override
-    public Poll get(Long userId) {
+    public PollBuilder get(Long userId) {
         return this.polls.get(userId);
     }
 
     @Override
-    public void add(Long userId, Poll poll) {
+    public void add(Long userId, PollBuilder poll) {
         this.polls.put(userId, poll);
     }
 

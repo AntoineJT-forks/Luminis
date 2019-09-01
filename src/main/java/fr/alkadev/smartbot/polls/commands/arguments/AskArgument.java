@@ -2,6 +2,7 @@ package fr.alkadev.smartbot.polls.commands.arguments;
 
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
 import fr.alkadev.smartbot.system.managers.SmartBotManager;
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
 public class AskArgument extends PollCommandArgument {
@@ -21,13 +22,8 @@ public class AskArgument extends PollCommandArgument {
     }
 
     protected void executeHasPollAction(Message message, String[] args) {
-        this.pollsManager.get(message.getAuthor().getIdLong()).setQuestion(String.join(" ", args));
-        super.executeHasPollAction(message, args);
-    }
-
-    @Override
-    protected String getValidationMessage() {
-        return "La question du sondage a bien été changée.";
+        this.pollsManager.get(message.getAuthor().getIdLong()).withQuestion(String.join(" ", args));
+        MessageSender.sendPrivateMessage(message.getAuthor(), "La question du sondage a bien été changée.");
     }
 
 }

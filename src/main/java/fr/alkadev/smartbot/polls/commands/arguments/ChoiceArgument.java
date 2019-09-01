@@ -61,7 +61,7 @@ public class ChoiceArgument extends PollCommandArgument {
         User user = message.getAuthor();
         int choiceNumber = Integer.parseInt(args[0]);
 
-        this.pollsManager.get(user.getIdLong()).setChoice(choiceNumber, this.getChoice(args));
+        this.pollsManager.get(user.getIdLong()).addChoice(choiceNumber, this.getChoice(args));
         MessageSender.sendPrivateMessage(user, "Le choix numéro " + choiceNumber + " a bien été enregistré.");
     }
 

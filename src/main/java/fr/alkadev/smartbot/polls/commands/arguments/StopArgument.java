@@ -2,6 +2,7 @@ package fr.alkadev.smartbot.polls.commands.arguments;
 
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
 import fr.alkadev.smartbot.system.managers.SmartBotManager;
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
 public class StopArgument extends PollCommandArgument {
@@ -22,12 +23,7 @@ public class StopArgument extends PollCommandArgument {
 
     protected void executeHasPollAction(Message message, String[] args) {
         this.pollsManager.remove(message.getAuthor().getIdLong());
-        super.executeHasPollAction(message, args);
-    }
-
-    @Override
-    protected String getValidationMessage() {
-        return "Annulation du sondage.";
+        MessageSender.sendPrivateMessage(message.getAuthor(), "Vous avez déjà un sondage en cours de création.");
     }
 
 }

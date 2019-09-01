@@ -2,6 +2,7 @@ package fr.alkadev.smartbot.polls.commands.arguments;
 
 import fr.alkadev.smartbot.polls.commands.PollCommandArgument;
 import fr.alkadev.smartbot.system.managers.SmartBotManager;
+import fr.alkadev.smartbot.utils.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 
 public class ColorArgument extends PollCommandArgument {
@@ -24,13 +25,8 @@ public class ColorArgument extends PollCommandArgument {
         if (args.length == 0) args = new String[]{""};
 
         String[] finalArgs = args;
-        this.pollsManager.get(message.getAuthor().getIdLong()).setColor(finalArgs[0]);
-        super.executeHasPollAction(message, args);
-    }
-
-    @Override
-    protected String getValidationMessage() {
-        return "La couleur du sondage a bien été changée.";
+        this.pollsManager.get(message.getAuthor().getIdLong()).withColor(finalArgs[0]);
+        MessageSender.sendPrivateMessage(message.getAuthor(), "La couleur du sondage a bien été changée.");
     }
 
 }

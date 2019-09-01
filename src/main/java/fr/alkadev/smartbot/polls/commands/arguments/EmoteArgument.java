@@ -55,7 +55,7 @@ public class EmoteArgument extends PollCommandArgument {
         User user = message.getAuthor();
         int choiceNumber = Integer.parseInt(args[0]);
 
-        this.pollsManager.get(user.getIdLong()).setEmote(choiceNumber, args[1]);
+        this.pollsManager.get(user.getIdLong()).addEmote(choiceNumber, args[1]);
         MessageSender.sendPrivateMessage(user, "Le choix numéro " + choiceNumber + " a bien été enregistré.");
     }
 
