@@ -1,15 +1,15 @@
-package fr.alkadev.smartbot.system.commands;
+package fr.alkadev.luminis.system.commands;
 
-import fr.alkadev.smartbot.commands.CommandRestricted;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.*;
+import fr.alkadev.luminis.commands.CommandRestricted;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.*;
 
 import java.awt.*;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-public class UserCommand implements CommandRestricted {
+public class UserInfosCommand implements CommandRestricted {
 
     @Override
     public String getCommand(){
@@ -44,9 +44,9 @@ public class UserCommand implements CommandRestricted {
             member.getRoles().forEach(role -> roleBuilder.append(role.getName()).append(", "));
 
             String nickname = member.getNickname() == null ? "Aucun surnom" : member.getNickname();
-            String gameName = member.getGame() == null ? "Aucun jeu" : member.getGame().getName();
-            String creationTime = member.getUser().getCreationTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
-            String joinTime = member.getJoinDate().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
+            String gameName = member.getActivities().size() == 0  ? "Aucun jeu" : member.getActivities().get(0).getName();
+            String creationTime = member.getTimeCreated().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
+            String joinTime = member.getTimeJoined().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
             String roleList = member.getRoles().isEmpty() ? "Aucun rôle" : roleBuilder.toString().substring(0, roleBuilder.toString().length() - 2);
 
             embedBuilder.setAuthor(member.getUser().getAsTag(), null, member.getUser().getAvatarUrl());

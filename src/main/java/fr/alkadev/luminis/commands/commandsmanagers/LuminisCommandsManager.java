@@ -6,6 +6,7 @@ import fr.alkadev.luminis.polls.commands.PollCommand;
 import fr.alkadev.luminis.system.commands.AboutCommand;
 import fr.alkadev.luminis.system.commands.HelpCommand;
 import fr.alkadev.luminis.system.commands.RemindCommand;
+import fr.alkadev.luminis.system.commands.UserInfosCommand;
 import fr.alkadev.luminis.system.managers.LuminisManagers;
 
 import java.util.ArrayList;
@@ -27,7 +28,8 @@ public class LuminisCommandsManager extends CommandsManager {
         List<CommandRestricted> commands = new ArrayList<>(Arrays.asList(
                 new AboutCommand(),
                 new RemindCommand(),
-                new PollCommand(luminisManagers)
+                new PollCommand(luminisManagers),
+                new UserInfosCommand()
         ));
 
         commands.add(new HelpCommand(commands));
