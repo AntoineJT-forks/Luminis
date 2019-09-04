@@ -27,6 +27,7 @@ public class ColorArgument extends PollCommandArgument {
         String[] finalArgs = args;
         this.pollsManager.get(message.getAuthor().getIdLong()).withColor(finalArgs[0]);
         MessageSender.sendPrivateMessage(message.getAuthor(), "La couleur du sondage a bien été changée.");
+        super.updatePoll(message.getAuthor());
     }
 
 }

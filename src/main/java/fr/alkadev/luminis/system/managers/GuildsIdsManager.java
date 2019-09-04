@@ -1,13 +1,14 @@
 package fr.alkadev.luminis.system.managers;
 
 import fr.alkadev.luminis.database.DatabaseSaver;
+import org.jooq.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.jooq.impl.DSL.field;
+import static org.jooq.impl.DSL.table;
 
 public class GuildsIdsManager implements LuminisManager<Integer, Long>, DatabaseSaver {
 
@@ -36,34 +37,35 @@ public class GuildsIdsManager implements LuminisManager<Integer, Long>, Database
     }
 
     @Override
-    public void save(Connection connection) throws SQLException {
+    public void save(DSLContext context) {
 
-        connection.prepareStatement("TRUNCATE TABLE guilds_ids").execute();
+        context.truncate(table("guilds_ids")).execute();
 
         for (Map.Entry<Long, Integer> entry : this.guildsIds.entrySet()) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO guilds_ids(guild_id, id) VALUES(?, ?)");
-            preparedStatement.setString(1, String.valueOf(entry.getKey()));
-            preparedStatement.setInt(2, entry.getValue());
-
-            preparedStatement.execute();
+            context.insertInto(table("guilds_ids"))
+                    .columns(field("guild_id"), field("id"))
+                    .values(String.valueOf(entry.getKey()), entry.getValue())
+                    .execute();
 
         }
 
     }
 
     @Override
-    public void load(Connection connection) throws SQLException {
+    public void load(DSLContext context) {
 
         this.guildsIds.clear();
 
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM guilds_ids");
-        ResultSet resultSet = preparedStatement.executeQuery();
+        Result<Record2<Object, Object>> result = context
+                .select(field("id"), field("guild_id"))
+                .from(table("guilds_ids"))
+                .fetch();
 
-        while (resultSet.next()) {
+        for (Record record : result) {
 
-            int id = resultSet.getInt("id");
-            long guildId = Long.parseLong(resultSet.getString("guild_id"));
+            int id = record.getValue("id", Integer.class);
+            long guildId = record.getValue("guild_id", Long.class);
             this.index = id;
 
             this.add(guildId, 0);

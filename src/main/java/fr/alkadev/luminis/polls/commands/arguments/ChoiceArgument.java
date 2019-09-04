@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.Arrays;
+import java.util.function.BiConsumer;
 
 public class ChoiceArgument extends PollCommandArgument {
 
@@ -49,12 +50,14 @@ public class ChoiceArgument extends PollCommandArgument {
 
     private void executeChoiceAction(Message message, String[] args) {
 
-        if (!this.getChoice(args).isEmpty()) {
-            this.setChoice(message, args);
-            return;
+        BiConsumer<Message, String[]> consumer = this::setChoice;
+
+        if (this.getChoice(args).isEmpty()) {
+            consumer = this::removeChoice;
         }
 
-        this.removeChoice(message, args);
+        consumer.accept(message, args);
+        super.updatePoll(message.getAuthor());
     }
 
     private void setChoice(Message message, String[] args) {

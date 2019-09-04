@@ -2,6 +2,8 @@ package fr.alkadev.luminis.database;
 
 import fr.alkadev.luminis.system.managers.LuminisManagers;
 import fr.alkadev.luminis.utils.configuration.Configuration;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -33,10 +35,10 @@ public class DatabaseManager {
         }
     }
 
-    private void loadManagers(Connection connection) throws SQLException {
+    private void loadManagers(Connection connection) {
 
         for (DatabaseSaver databaseSaver : this.luminisManagers.getSavers())
-            databaseSaver.load(connection);
+            databaseSaver.load(DSL.using(connection, SQLDialect.POSTGRES));
 
     }
 
@@ -50,10 +52,11 @@ public class DatabaseManager {
         }
     }
 
-    private void saveManagers(Connection connection) throws SQLException {
+    private void saveManagers(Connection connection) {
 
-        for (DatabaseSaver databaseSaver : this.luminisManagers.getSavers())
-            databaseSaver.save(connection);
+        for (DatabaseSaver databaseSaver : this.luminisManagers.getSavers()) {
+            databaseSaver.save(DSL.using(connection, SQLDialect.POSTGRES));
+        }
 
     }
 

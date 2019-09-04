@@ -5,15 +5,15 @@ import fr.alkadev.luminis.system.managers.LuminisManager;
 import fr.alkadev.luminis.utils.MessageSender;
 import net.dv8tion.jda.api.entities.Message;
 
-public class StopArgument extends PollCommandArgument {
+public class CancelArgument extends PollCommandArgument {
 
-    public StopArgument(LuminisManager pollsManager) {
+    public CancelArgument(LuminisManager pollsManager) {
         super(pollsManager);
     }
 
     @Override
     public String getCommand() {
-        return "stop";
+        return "cancel";
     }
 
     @Override
@@ -23,7 +23,8 @@ public class StopArgument extends PollCommandArgument {
 
     protected void executeHasPollAction(Message message, String[] args) {
         this.pollsManager.remove(message.getAuthor().getIdLong());
-        MessageSender.sendPrivateMessage(message.getAuthor(), "Sondage terminé et envoyé.");
+        MessageSender.sendPrivateMessage(message.getAuthor(), "Sondage annulé.");
+        super.updatePoll(message.getAuthor());
     }
 
 }

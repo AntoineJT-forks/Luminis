@@ -1,12 +1,11 @@
 package fr.alkadev.luminis.database;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import org.jooq.DSLContext;
 
 public interface DatabaseSaver {
 
-    void save(Connection connection) throws SQLException;
+    void save(DSLContext context);
 
-    void load(Connection connection) throws SQLException;
+    void load(DSLContext context);
 
 }

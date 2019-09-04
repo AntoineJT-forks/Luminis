@@ -33,7 +33,7 @@ public abstract class PollCommandArgument implements CommandRestricted {
     protected void executeHasPollAction(Message message, String[] args) {}
 
     protected void updatePoll(User user) {
-
+        user.openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(this.pollsManager.get(user.getIdLong()).toMessage(user)).queue());
     }
 
 }

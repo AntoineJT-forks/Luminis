@@ -25,6 +25,7 @@ public class AskArgument extends PollCommandArgument {
     protected void executeHasPollAction(Message message, String[] args) {
         this.pollsManager.get(message.getAuthor().getIdLong()).withQuestion(String.join(" ", args));
         MessageSender.sendPrivateMessage(message.getAuthor(), "La question du sondage a bien été changée.");
+        super.updatePoll(message.getAuthor());
     }
 
 }

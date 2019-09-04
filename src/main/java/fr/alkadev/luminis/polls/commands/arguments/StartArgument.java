@@ -32,10 +32,12 @@ public class StartArgument extends PollCommandArgument {
     @Override
     protected void executeHasNotPollAction(Message message, String[] args) {
         MessageSender.sendPrivateMessage(message.getAuthor(), "Création d'un sondage.",
-                sentMessage -> this.pollsManager.add(message.getAuthor().getIdLong(), new PollBuilder().withGuildId(message.getGuild().getIdLong())),
+                sentMessage -> {
+                    this.pollsManager.add(message.getAuthor().getIdLong(), new PollBuilder().withGuildId(message.getGuild().getIdLong()));
+                    super.updatePoll(message.getAuthor());
+                },
                 throwable -> MessageSender.sendMessage(message.getChannel(), message.getAuthor().getAsMention() + ", vérifez que vos mp sont ouverts pour pouvoir démarrer la création d'un sondage."));
 
-        super.updatePoll(message.getAuthor());
     }
 
     @Override

@@ -23,7 +23,7 @@ class PollCommandArgumentsManager {
         pollCommandArguments = new ArrayList<>(Arrays.asList(
                 new EmptyArgument(),
                 new StartArgument(pollsManager),
-                new StopArgument(pollsManager),
+                new CancelArgument(pollsManager),
                 new ColorArgument(pollsManager),
                 new AskArgument(pollsManager),
                 new ChoiceArgument(pollsManager),

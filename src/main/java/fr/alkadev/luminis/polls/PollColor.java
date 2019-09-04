@@ -17,11 +17,11 @@ public enum PollColor {
     PINK(Color.PINK, "PINK"),
     BLUE(Color.BLUE, "BLUE");
 
-    public final Color color;
+    public final Color awtColor;
     private final String text;
 
-    PollColor(Color color, String text) {
-        this.color = color;
+    PollColor(Color awtColor, String text) {
+        this.awtColor = awtColor;
         this.text = text;
     }
 
