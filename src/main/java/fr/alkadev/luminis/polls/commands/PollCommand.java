@@ -4,8 +4,8 @@ import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jdautilities.doc.standard.CommandInfo;
 import com.jagrosh.jdautilities.examples.doc.Author;
-import fr.alkadev.luminis.commands.CommandCategory;
-import fr.alkadev.luminis.commands.LuminisCommand;
+import fr.alkadev.luminis.system.commands.CommandCategory;
+import fr.alkadev.luminis.system.commands.LuminisCommand;
 
 import java.util.List;
 import java.util.stream.Collectors;

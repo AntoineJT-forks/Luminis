@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.commands;
+package fr.alkadev.luminis.system.commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;

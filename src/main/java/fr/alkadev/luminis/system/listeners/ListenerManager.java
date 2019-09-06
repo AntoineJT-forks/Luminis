@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.events;
+package fr.alkadev.luminis.system.listeners;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;

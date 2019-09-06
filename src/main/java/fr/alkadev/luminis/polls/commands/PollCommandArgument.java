@@ -1,7 +1,7 @@
 package fr.alkadev.luminis.polls.commands;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
-import fr.alkadev.luminis.commands.LuminisCommand;
+import fr.alkadev.luminis.system.commands.LuminisCommand;
 import fr.alkadev.luminis.polls.PollBuilder;
 import fr.alkadev.luminis.system.managers.LuminisManager;
 import net.dv8tion.jda.api.entities.Message;

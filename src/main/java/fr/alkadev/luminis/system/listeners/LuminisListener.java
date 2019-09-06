@@ -1,8 +1,6 @@
-package fr.alkadev.luminis.events;
+package fr.alkadev.luminis.system.listeners;
 
 import fr.alkadev.luminis.database.DatabaseManager;
-import fr.alkadev.luminis.system.listeners.GuildJoinListener;
-import fr.alkadev.luminis.system.listeners.ReadyListener;
 import fr.alkadev.luminis.system.managers.LuminisManagers;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

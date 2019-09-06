@@ -1,9 +1,9 @@
 package fr.alkadev.luminis;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import fr.alkadev.luminis.commands.CommandsManager;
+import fr.alkadev.luminis.system.commands.CommandsManager;
 import fr.alkadev.luminis.database.DatabaseManager;
-import fr.alkadev.luminis.events.ListenerManager;
+import fr.alkadev.luminis.system.listeners.ListenerManager;
 import fr.alkadev.luminis.utils.configuration.Configuration;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;

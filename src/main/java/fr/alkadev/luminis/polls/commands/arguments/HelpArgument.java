@@ -3,7 +3,7 @@ package fr.alkadev.luminis.polls.commands.arguments;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jdautilities.doc.standard.CommandInfo;
 import com.jagrosh.jdautilities.examples.doc.Author;
-import fr.alkadev.luminis.commands.CommandCategory;
+import fr.alkadev.luminis.system.commands.CommandCategory;
 import fr.alkadev.luminis.polls.commands.PollCommandArgument;
 
 import java.util.List;

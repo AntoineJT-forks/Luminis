@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.commands;
+package fr.alkadev.luminis.system.commands;
 
 
 import com.jagrosh.jdautilities.command.Command;
@@ -7,9 +7,9 @@ import fr.alkadev.luminis.polls.PollBuilder;
 import fr.alkadev.luminis.polls.PollsManager;
 import fr.alkadev.luminis.polls.commands.PollCommand;
 import fr.alkadev.luminis.polls.commands.arguments.*;
-import fr.alkadev.luminis.system.commands.AboutCommand;
-import fr.alkadev.luminis.system.commands.RemindCommand;
-import fr.alkadev.luminis.system.commands.UserInfosCommand;
+import fr.alkadev.luminis.system.commands.commands.AboutCommand;
+import fr.alkadev.luminis.system.commands.commands.RemindCommand;
+import fr.alkadev.luminis.system.commands.commands.UserInfosCommand;
 import fr.alkadev.luminis.system.managers.ChannelsIdsManager;
 import fr.alkadev.luminis.system.managers.GuildsIdsManager;
 import fr.alkadev.luminis.system.managers.LuminisManager;

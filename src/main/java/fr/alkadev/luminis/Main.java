@@ -1,11 +1,12 @@
 package fr.alkadev.luminis;
 
-import com.jagrosh.jdautilities.doc.DocGenerator;
-import fr.alkadev.luminis.commands.LuminisCommandsManager;
+import com.jagrosh.jdautilities.commons.utils.FinderUtil;
+import com.jagrosh.jdautilities.commons.utils.FixedSizeCache;
+import com.jagrosh.jdautilities.commons.utils.SafeIdUtil;
+import fr.alkadev.luminis.system.commands.LuminisCommandsManager;
 import fr.alkadev.luminis.database.DatabaseManager;
-import fr.alkadev.luminis.events.ListenerManager;
-import fr.alkadev.luminis.events.LuminisListenerBuilder;
-import fr.alkadev.luminis.system.commands.RemindCommand;
+import fr.alkadev.luminis.system.listeners.ListenerManager;
+import fr.alkadev.luminis.system.listeners.LuminisListenerBuilder;
 import fr.alkadev.luminis.system.managers.LuminisManagers;
 import fr.alkadev.luminis.utils.configuration.Configuration;
 import fr.alkadev.luminis.utils.configuration.ConfigurationLoader;
@@ -37,6 +38,8 @@ public class Main {
         }
 
         luminisBot.stop();
+
+
     }
 
     private static void load() {
