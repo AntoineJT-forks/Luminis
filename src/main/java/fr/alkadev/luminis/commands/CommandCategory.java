@@ -1,4 +1,4 @@
-package fr.alkadev.luminis;
+package fr.alkadev.luminis.commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -7,8 +7,8 @@ import java.util.function.Predicate;
 
 public enum CommandCategory {
 
-    SYSTEM("System"),
-    GUILD("Server", "Vous ne pouvez pas éxécuter cette commande en dehors d'un serveur", commandEvent -> commandEvent.getGuild() != null);
+    SYSTEM("Système"),
+    POLL("Sondages");
 
     public final Command.Category category;
 
@@ -17,7 +17,7 @@ public enum CommandCategory {
     }
 
     CommandCategory(String name) {
-        category = new Command.Category(name);
+        category = new Command.Category(name, "", commandEvent -> true);
     }
 
 }

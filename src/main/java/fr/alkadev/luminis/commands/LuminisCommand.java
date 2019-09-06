@@ -3,14 +3,23 @@ package fr.alkadev.luminis.commands;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
-public class LuminisCommand extends Command {
+import java.util.Arrays;
 
+public abstract class LuminisCommand extends Command {
 
     @Override
     protected void execute(CommandEvent event) {
 
-        String args
+        String contentDisplay = event.getMessage().getContentDisplay();
+        String command = contentDisplay.substring(contentDisplay.indexOf(this.name));
+        String[] contentArray = command.split(" ");
+
+        String[] args = Arrays.copyOfRange(contentArray, 1, contentArray.length);
+
+        this.execute(event, args);
 
     }
+
+    protected abstract void execute(CommandEvent event, String[] args);
 
 }

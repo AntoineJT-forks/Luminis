@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class CommandsManager {
 
-    public void registerCommand(CommandClientBuilder clientBuilder) {
+    public void registerCommands(CommandClientBuilder clientBuilder) {
 
         this.getCommands().forEach(clientBuilder::addCommand);
 
