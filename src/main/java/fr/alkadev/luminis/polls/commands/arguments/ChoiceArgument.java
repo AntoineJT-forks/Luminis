@@ -1,83 +1,69 @@
 package fr.alkadev.luminis.polls.commands.arguments;
 
+import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.doc.standard.CommandInfo;
+import com.jagrosh.jdautilities.examples.doc.Author;
+import fr.alkadev.luminis.commands.CommandCategory;
+import fr.alkadev.luminis.polls.PollBuilder;
 import fr.alkadev.luminis.polls.commands.PollCommandArgument;
 import fr.alkadev.luminis.system.managers.LuminisManager;
-import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.Arrays;
-import java.util.function.BiConsumer;
 
+@Author("Luka")
+@CommandInfo(name = "choice", description = "change the channel where polls are sent")
 public class ChoiceArgument extends PollCommandArgument {
 
-    public ChoiceArgument(LuminisManager pollsManager) {
+    public ChoiceArgument(LuminisManager<PollBuilder, Long> pollsManager) {
         super(pollsManager);
+        this.name = "choice";
+        this.help = "Changer un choix.";
+        this.category = CommandCategory.POLL.category;
+        this.guildOnly = false;
     }
 
     @Override
-    public String getCommand() {
-        return "choice";
-    }
+    protected void executeHasPollAction(CommandEvent event, String[] args) {
 
-    @Override
-    public String getDescription() {
-        return "Changer un choix.";
-    }
-
-    @Override
-    protected void executeHasPollAction(Message message, String[] args) {
-
-        if (this.isFirstArgCorrect(args)) {
-            this.executeChoiceAction(message, args);
+        boolean isFirstArgCorrect = args.length != 0 && args[0].matches("^[0-9]{0,9}$");
+        if (isFirstArgCorrect) {
+            this.executeChoiceAction(event, args);
             return;
         }
 
-        String errorMessage = "*poll choice <numéro du choix> <optionnel : description du choix>.";
-        MessageSender.sendPrivateMessage(message.getAuthor(), errorMessage);
+        event.replyInDm("*poll choice <numéro du choix> <optionnel : description du choix>.");
     }
 
-    private boolean isFirstArgCorrect(String[] args) {
+    private void executeChoiceAction(CommandEvent event, String[] args) {
 
-        try {
-            Integer.parseInt(args[0]);
-            return true;
-        } catch (ArrayIndexOutOfBoundsException | NumberFormatException ignored) {
-            return false;
+        int choiceNumber = Integer.parseInt(args[0]);
+        String choice = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+
+        if (!choice.isEmpty()) {
+            event.replyInDm(this.setChoice(event.getAuthor(), choiceNumber, choice));
+            return;
         }
 
+        event.replyInDm(this.removeChoice(event.getAuthor(), choiceNumber));
     }
 
-    private void executeChoiceAction(Message message, String[] args) {
+    private String setChoice(User author, int choiceNumber, String choice) {
 
-        BiConsumer<Message, String[]> consumer = this::setChoice;
+        PollBuilder pollBuilder = this.pollsManager.get(author.getIdLong());
+        pollBuilder.addChoice(choiceNumber, choice);
 
-        if (this.getChoice(args).isEmpty()) {
-            consumer = this::removeChoice;
-        }
-
-        consumer.accept(message, args);
-        super.updatePoll(message.getAuthor());
+        updatePoll(author);
+        return "Le choix numéro " + choiceNumber + " a bien été enregistré.";
     }
 
-    private void setChoice(Message message, String[] args) {
-        User user = message.getAuthor();
-        int choiceNumber = Integer.parseInt(args[0]);
+    private String removeChoice(User author, int choiceNumber) {
 
-        this.pollsManager.get(user.getIdLong()).addChoice(choiceNumber, this.getChoice(args));
-        MessageSender.sendPrivateMessage(user, "Le choix numéro " + choiceNumber + " a bien été enregistré.");
-    }
+        PollBuilder pollBuilder = this.pollsManager.get(author.getIdLong());
+        pollBuilder.removeChoice(choiceNumber);
 
-    private void removeChoice(Message message, String[] args) {
-        User user = message.getAuthor();
-        int choiceNumber = Integer.parseInt(args[0]);
-
-        this.pollsManager.get(user.getIdLong()).removeChoice(choiceNumber);
-        MessageSender.sendPrivateMessage(user, "Le choix numéro " + choiceNumber + " a bien été supprimé.");
-    }
-
-    private String getChoice(String[] args) {
-        return String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        updatePoll(author);
+        return "Le choix numéro " + choiceNumber + " a bien été supprimé.";
     }
 
 }

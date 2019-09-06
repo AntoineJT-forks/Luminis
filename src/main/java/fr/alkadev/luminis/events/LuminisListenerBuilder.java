@@ -1,6 +1,6 @@
 package fr.alkadev.luminis.events;
 
-import fr.alkadev.luminis.commands.commandsmanagers.CommandsManager;
+import fr.alkadev.luminis.commands.CommandsManager;
 import fr.alkadev.luminis.database.DatabaseManager;
 import fr.alkadev.luminis.system.managers.LuminisManagers;
 

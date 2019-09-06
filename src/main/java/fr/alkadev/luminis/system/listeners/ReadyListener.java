@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.system.events;
+package fr.alkadev.luminis.system.listeners;
 
 import fr.alkadev.luminis.database.DatabaseManager;
 import fr.alkadev.luminis.database.task.DatabaseTask;

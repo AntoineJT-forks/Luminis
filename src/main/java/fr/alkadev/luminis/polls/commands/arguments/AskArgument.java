@@ -1,31 +1,31 @@
 package fr.alkadev.luminis.polls.commands.arguments;
 
+import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.doc.standard.CommandInfo;
+import com.jagrosh.jdautilities.examples.doc.Author;
+import fr.alkadev.luminis.commands.CommandCategory;
+import fr.alkadev.luminis.polls.PollBuilder;
 import fr.alkadev.luminis.polls.commands.PollCommandArgument;
 import fr.alkadev.luminis.system.managers.LuminisManager;
-import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.api.entities.Message;
 
-
+@Author("Luka")
+@CommandInfo(name = "add", description = "change the poll's question")
 public class AskArgument extends PollCommandArgument {
 
-    public AskArgument(LuminisManager pollsManager) {
+    public AskArgument(LuminisManager<PollBuilder, Long> pollsManager) {
         super(pollsManager);
+        this.name = "ask";
+        this.help = "Changer la question du sondage";
+        this.category = CommandCategory.POLL.category;
+        this.guildOnly = false;
     }
 
-    @Override
-    public String getCommand() {
-        return "ask";
-    }
+    protected void executeHasPollAction(CommandEvent event, String[] args) {
+        PollBuilder pollBuilder = this.pollsManager.get(event.getAuthor().getIdLong());
+        pollBuilder.withQuestion(String.join(" ", args));
+        super.updatePoll(event.getAuthor());
 
-    @Override
-    public String getDescription() {
-        return "Définir la question du sondage.";
-    }
-
-    protected void executeHasPollAction(Message message, String[] args) {
-        this.pollsManager.get(message.getAuthor().getIdLong()).withQuestion(String.join(" ", args));
-        MessageSender.sendPrivateMessage(message.getAuthor(), "La question du sondage a bien été changée.");
-        super.updatePoll(message.getAuthor());
+        event.replyInDm("La question du sondage a bien été changée.");
     }
 
 }

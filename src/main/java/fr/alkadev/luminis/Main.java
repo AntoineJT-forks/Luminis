@@ -1,6 +1,6 @@
 package fr.alkadev.luminis;
 
-import fr.alkadev.luminis.commands.commandsmanagers.LuminisCommandsManager;
+import fr.alkadev.luminis.commands.LuminisCommandsManager;
 import fr.alkadev.luminis.database.DatabaseManager;
 import fr.alkadev.luminis.events.ListenerManager;
 import fr.alkadev.luminis.events.LuminisListenerBuilder;
@@ -21,31 +21,33 @@ public class Main {
     private static Configuration configuration;
     private static DatabaseManager databaseManager;
     private static ListenerManager listenerManager;
+    private static LuminisCommandsManager commandsManager;
 
     public static void main(String[] args) {
 
         load();
 
-        Luminis luminis = new Luminis(databaseManager);
-        luminis.start(configuration.token, listenerManager);
+        LuminisBot luminisBot = new LuminisBot(databaseManager);
+        luminisBot.start(configuration, listenerManager, commandsManager);
 
         while (!SCANNER.nextLine().equalsIgnoreCase("stop")) {
             LOGGER.error("write \"stop\" to stop the bot");
         }
 
-        luminis.stop();
+        luminisBot.stop();
     }
 
     private static void load() {
         LuminisManagers luminisManagers = new LuminisManagers();
 
         configuration = ConfigurationLoader.loadFrom(new File("configuration.json"));
+        commandsManager = new LuminisCommandsManager(luminisManagers);
         databaseManager = new DatabaseManager(configuration, luminisManagers);
+
         listenerManager = LuminisListenerBuilder
                 .aSmartBotListener()
                 .withDatabaseManager(databaseManager)
                 .withSmartBotManagers(luminisManagers)
-                .withCommandsManager(new LuminisCommandsManager(luminisManagers))
                 .build();
     }
 

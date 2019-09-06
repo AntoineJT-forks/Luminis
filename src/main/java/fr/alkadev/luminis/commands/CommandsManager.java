@@ -1,0 +1,18 @@
+package fr.alkadev.luminis.commands;
+
+import com.jagrosh.jdautilities.command.Command;
+import com.jagrosh.jdautilities.command.CommandClientBuilder;
+
+import java.util.List;
+
+public abstract class CommandsManager {
+
+    public void registerCommand(CommandClientBuilder clientBuilder) {
+
+        this.getCommands().forEach(clientBuilder::addCommand);
+
+    }
+
+    protected abstract List<Command> getCommands();
+
+}

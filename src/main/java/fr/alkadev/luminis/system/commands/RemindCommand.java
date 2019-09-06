@@ -1,43 +1,53 @@
 package fr.alkadev.luminis.system.commands;
 
-import fr.alkadev.luminis.commands.CommandRestricted;
-import fr.alkadev.luminis.utils.MessageSender;
+import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.doc.standard.CommandInfo;
+import com.jagrosh.jdautilities.examples.doc.Author;
+import fr.alkadev.luminis.commands.CommandCategory;
+import fr.alkadev.luminis.commands.LuminisCommand;
 import fr.alkadev.luminis.utils.TimeParser;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-public class RemindCommand implements CommandRestricted {
+@Author("Alexandre")
+@CommandInfo(name = "remind", description = "create a remind")
+public class RemindCommand extends LuminisCommand {
 
-    @Override
-    public String getCommand() {
-        return "remind";
+    public RemindCommand() {
+        this.name = "remind";
+        this.help = "Créer un rappel.";
+        this.category = CommandCategory.SYSTEM.category;
+        this.guildOnly = false;
     }
 
     @Override
-    public String getDescription() {
-        return "Créer un rappel";
-    }
-
-    @Override
-    public void execute(Message message, String[] args) {
-
-        MessageChannel channel = message.getChannel();
+    protected void execute(CommandEvent event, String[] args) {
 
         if (args.length >= 2) {
 
-            long delay = TimeParser.parsePeriod(args[0]);
-            String remindMessageContent = message.getAuthor().getAsMention() + " " + String.join(" ", Arrays.copyOfRange(args, 1, args.length));
-
-            channel.sendMessage(remindMessageContent).queueAfter(delay, TimeUnit.MILLISECONDS);
-
-            MessageSender.sendMessage(channel, "Votre rappel a été enregistré dans notre système avec succès. ");
+            event.reply("Votre rappel a été enregistré dans notre système avec succès. ");
+            sendRemindMessage(event, args, event.getChannel());
             return;
         }
 
-        channel.sendMessage("L'utilisation de la commande se fait comme tel : *remind <time> <message>").queue();
+        event.replyWarning("L'utilisation de la commande se fait comme tel : *remind <time> <message>");
+    }
+
+    private void sendRemindMessage(CommandEvent event, String[] args, MessageChannel channel) {
+        long delay = TimeParser.parsePeriod(args[0]);
+
+        String remindMessage = computeRemindMessage(event.getMessage().getAuthor(), args);
+        channel.sendMessage(remindMessage).queueAfter(delay, TimeUnit.MILLISECONDS);
+    }
+
+    @NotNull
+    private String computeRemindMessage(User author, String[] args) {
+        String remindMessage = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        return author.getAsMention() + " " + remindMessage;
     }
 
 }

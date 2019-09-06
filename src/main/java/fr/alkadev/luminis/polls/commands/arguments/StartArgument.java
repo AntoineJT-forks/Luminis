@@ -1,48 +1,41 @@
 package fr.alkadev.luminis.polls.commands.arguments;
 
+import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.doc.standard.CommandInfo;
+import com.jagrosh.jdautilities.examples.doc.Author;
+import fr.alkadev.luminis.commands.CommandCategory;
 import fr.alkadev.luminis.polls.PollBuilder;
 import fr.alkadev.luminis.polls.commands.PollCommandArgument;
 import fr.alkadev.luminis.system.managers.LuminisManager;
-import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
+@Author("Luka")
+@CommandInfo(name = "start", description = "start a poll")
 public class StartArgument extends PollCommandArgument {
 
-    public StartArgument(LuminisManager pollsManager) {
+    public StartArgument(LuminisManager<PollBuilder, Long> pollsManager) {
         super(pollsManager);
+        this.name = "start";
+        this.help = "Démarre la création d'un sondage.";
+        this.category = CommandCategory.POLL.category;
+        this.guildOnly = true;
     }
 
     @Override
-    public String getCommand() {
-        return "start";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Démarre la création d'un sondage.";
-    }
-
-    @Override
-    public boolean isAuthorizedChannel(MessageChannel messageChannel) {
-        return messageChannel.getType() == ChannelType.TEXT;
-    }
-
-    @Override
-    protected void executeHasNotPollAction(Message message, String[] args) {
-        MessageSender.sendPrivateMessage(message.getAuthor(), "Création d'un sondage.",
+    protected void executeHasNotPollAction(CommandEvent event, String[] args) {
+        User author = event.getAuthor();
+        event.replyInDm("Création d'un sondage.",
                 sentMessage -> {
-                    this.pollsManager.add(message.getAuthor().getIdLong(), new PollBuilder().withGuildId(message.getGuild().getIdLong()));
-                    super.updatePoll(message.getAuthor());
+                    this.pollsManager.add(author.getIdLong(), new PollBuilder().withGuildId(event.getGuild().getIdLong()));
+                    super.updatePoll(author);
                 },
-                throwable -> MessageSender.sendMessage(message.getChannel(), message.getAuthor().getAsMention() + ", vérifez que vos mp sont ouverts pour pouvoir démarrer la création d'un sondage."));
+                throwable -> event.replyWarning(author.getAsMention() + ", vérifez que vos mp sont ouverts pour pouvoir démarrer la création d'un sondage."));
 
     }
 
     @Override
-    protected void executeHasPollAction(Message message, String[] args) {
-        MessageSender.sendPrivateMessage(message.getAuthor(), "Vous avez déjà un sondage en cours de création.");
+    protected void executeHasPollAction(CommandEvent event, String[] args) {
+        event.replyInDm("Vous avez déjà un sondage en cours de création.");
     }
 
 }

@@ -1,25 +1,33 @@
 package fr.alkadev.luminis.system.commands;
 
-import fr.alkadev.luminis.commands.CommandRestricted;
-import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.api.entities.Message;
+import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.doc.standard.CommandInfo;
+import com.jagrosh.jdautilities.examples.doc.Author;
+import fr.alkadev.luminis.commands.CommandCategory;
+import fr.alkadev.luminis.commands.LuminisCommand;
+import net.dv8tion.jda.api.Permission;
 
-public class AboutCommand implements CommandRestricted {
+@Author("Luka")
+@CommandInfo(name = "about", description = "command which describe the bot")
+public class AboutCommand extends LuminisCommand {
 
-    @Override
-    public String getCommand() {
-        return "about";
+    public AboutCommand() {
+        this.name = "about";
+        this.help = "Commande \"à propos\" décrivant le bot.";
+        this.botPermissions = new Permission[]{Permission.MESSAGE_WRITE};
+        this.category = CommandCategory.SYSTEM.category;
+        this.guildOnly = false;
     }
 
     @Override
-    public String getDescription() {
-        return "Commande \"à propos\" décrivant le bot.";
-    }
+    protected void execute(CommandEvent event, String[] args) {
 
-    @Override
-    public void execute(Message message, String[] args) {
-
-        MessageSender.sendMessage(message.getChannel(), "Le SmartBot a été développé par Alexandre, AntoineJT and Luka.");
+        event.reply("Le SmartBot a été développé par Alexandre, AntoineJT and Luka.\n" +
+                "Les librairies utilisées sont :\n" +
+                " - JDA (https://github.com/DV8FromTheWorld/JDA)\n" +
+                " - JDA-Utilities (https://github.com/JDA-Applications/JDA-Utilities)\n" +
+                " - HikariCP (https://github.com/brettwooldridge/HikariCP)\n" +
+                " - JOOQ (https://github.com/jOOQ/jOOQ)\n");
 
     }
 

@@ -1,11 +1,15 @@
 package fr.alkadev.luminis.polls.commands.arguments;
 
+import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.doc.standard.CommandInfo;
+import com.jagrosh.jdautilities.examples.doc.Author;
+import fr.alkadev.luminis.commands.CommandCategory;
 import fr.alkadev.luminis.polls.commands.PollCommandArgument;
-import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.api.entities.Message;
 
 import java.util.List;
 
+@Author("Luka")
+@CommandInfo(name = "help", description = "send poll command argument list")
 public class HelpArgument extends PollCommandArgument {
 
     private final List<PollCommandArgument> pollCommandArguments;
@@ -13,24 +17,18 @@ public class HelpArgument extends PollCommandArgument {
     public HelpArgument(List<PollCommandArgument> pollCommandArguments) {
         super(null);
         this.pollCommandArguments = pollCommandArguments;
+        this.name = "help";
+        this.help = "Envoie la liste des arguments disponibles.\"";
+        this.category = CommandCategory.POLL.category;
+        this.guildOnly = false;
     }
 
     @Override
-    public String getCommand() {
-        return "help";
-    }
+    public void execute(CommandEvent event, String[] args) {
 
-    @Override
-    public String getDescription() {
-        return "Envoie la liste des arguments disponibles.";
-    }
-
-    @Override
-    public void execute(Message message, String[] args) {
-
-        MessageSender.sendMessage(message.getChannel(), this.pollCommandArguments
+        event.replyInDm(this.pollCommandArguments
                 .stream()
-                .map(command -> command.getCommand() + " : " + command.getDescription() + "\n")
+                .map(command -> command.getName() + " : " + command.getHelp() + "\n")
                 .reduce((sentMessage, commandDescription) -> sentMessage += commandDescription)
                 .orElse("Aucune commande n'est disponible."));
 

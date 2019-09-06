@@ -1,13 +1,13 @@
 package fr.alkadev.luminis.polls.commands;
 
-import fr.alkadev.luminis.commands.CommandRestricted;
+import com.jagrosh.jdautilities.command.CommandEvent;
+import fr.alkadev.luminis.commands.LuminisCommand;
 import fr.alkadev.luminis.polls.PollBuilder;
 import fr.alkadev.luminis.system.managers.LuminisManager;
-import fr.alkadev.luminis.utils.MessageSender;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 
-public abstract class PollCommandArgument implements CommandRestricted {
+public abstract class PollCommandArgument extends LuminisCommand {
 
     protected final LuminisManager<PollBuilder, Long> pollsManager;
 
@@ -16,24 +16,26 @@ public abstract class PollCommandArgument implements CommandRestricted {
     }
 
     @Override
-    public void execute(Message message, String[] args) {
+    public void execute(CommandEvent event, String[] args) {
 
-        if (this.pollsManager.isPresent(message.getAuthor().getIdLong())) {
-            this.executeHasPollAction(message, args);
+        if (this.pollsManager.isPresent(event.getAuthor().getIdLong())) {
+            this.executeHasPollAction(event, args);
             return;
         }
 
-        this.executeHasNotPollAction(message, args);
+        this.executeHasNotPollAction(event, args);
     }
 
-    protected void executeHasNotPollAction(Message message, String[] args) {
-        MessageSender.sendPrivateMessage(message.getAuthor(), "Vous n'avez pas de sondage en cours de création.");
+    protected void executeHasNotPollAction(CommandEvent event, String[] args) {
+        event.replyInDm("Vous n'avez pas de sondage en cours de création.");
     }
 
-    protected void executeHasPollAction(Message message, String[] args) {}
+    protected void executeHasPollAction(CommandEvent event, String[] args) {
+    }
 
     protected void updatePoll(User user) {
-        user.openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(this.pollsManager.get(user.getIdLong()).toMessage(user)).queue());
+        Message pollMessage = this.pollsManager.get(user.getIdLong()).toMessage(user);
+        user.openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(pollMessage).queue());
     }
 
 }

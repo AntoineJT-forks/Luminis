@@ -1,33 +1,33 @@
 package fr.alkadev.luminis.polls.commands.arguments;
 
+import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.doc.standard.CommandInfo;
+import com.jagrosh.jdautilities.examples.doc.Author;
+import fr.alkadev.luminis.commands.CommandCategory;
+import fr.alkadev.luminis.polls.PollBuilder;
 import fr.alkadev.luminis.polls.commands.PollCommandArgument;
 import fr.alkadev.luminis.system.managers.LuminisManager;
-import fr.alkadev.luminis.utils.MessageSender;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 
+@Author("Luka")
+@CommandInfo(name = "color", description = "change poll's color")
 public class ColorArgument extends PollCommandArgument {
 
-    public ColorArgument(LuminisManager pollsManager) {
+    public ColorArgument(LuminisManager<PollBuilder, Long> pollsManager) {
         super(pollsManager);
+        this.name = "color";
+        this.help = "Change la couleur du sondage.";
+        this.category = CommandCategory.POLL.category;
+        this.guildOnly = false;
     }
 
     @Override
-    public String getCommand() {
-        return "color";
-    }
+    protected void executeHasPollAction(CommandEvent event, String[] args) {
+        User author = event.getAuthor();
 
-    @Override
-    public String getDescription() {
-        return "Change la couleur du sondage.";
-    }
-
-    protected void executeHasPollAction(Message message, String[] args) {
-        if (args.length == 0) args = new String[]{""};
-
-        String[] finalArgs = args;
-        this.pollsManager.get(message.getAuthor().getIdLong()).withColor(finalArgs[0]);
-        MessageSender.sendPrivateMessage(message.getAuthor(), "La couleur du sondage a bien été changée.");
-        super.updatePoll(message.getAuthor());
+        this.pollsManager.get(author.getIdLong()).withColor(args.length != 0 ? args[0] : "");
+        super.updatePoll(author);
+        event.replyInDm("La couleur du sondage a bien été changée.");
     }
 
 }
