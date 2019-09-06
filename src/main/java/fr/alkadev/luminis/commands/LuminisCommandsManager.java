@@ -2,6 +2,7 @@ package fr.alkadev.luminis.commands;
 
 
 import com.jagrosh.jdautilities.command.Command;
+import fr.alkadev.luminis.database.DatabaseManager;
 import fr.alkadev.luminis.polls.PollBuilder;
 import fr.alkadev.luminis.polls.PollsManager;
 import fr.alkadev.luminis.polls.commands.PollCommand;
@@ -21,9 +22,11 @@ import java.util.List;
 public class LuminisCommandsManager extends CommandsManager {
 
     private final LuminisManagers luminisManagers;
+    private final DatabaseManager databaseManager;
 
-    public LuminisCommandsManager(LuminisManagers luminisManagers) {
+    public LuminisCommandsManager(LuminisManagers luminisManagers, DatabaseManager databaseManager) {
         this.luminisManagers = luminisManagers;
+        this.databaseManager = databaseManager;
     }
 
     @Override
@@ -46,6 +49,7 @@ public class LuminisCommandsManager extends CommandsManager {
                 new UserInfosCommand(),
                 new PollCommand(pollsArguments)
         ));
+
     }
 
 }

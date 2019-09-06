@@ -1,9 +1,11 @@
 package fr.alkadev.luminis;
 
+import com.jagrosh.jdautilities.doc.DocGenerator;
 import fr.alkadev.luminis.commands.LuminisCommandsManager;
 import fr.alkadev.luminis.database.DatabaseManager;
 import fr.alkadev.luminis.events.ListenerManager;
 import fr.alkadev.luminis.events.LuminisListenerBuilder;
+import fr.alkadev.luminis.system.commands.RemindCommand;
 import fr.alkadev.luminis.system.managers.LuminisManagers;
 import fr.alkadev.luminis.utils.configuration.Configuration;
 import fr.alkadev.luminis.utils.configuration.ConfigurationLoader;
@@ -41,14 +43,15 @@ public class Main {
         LuminisManagers luminisManagers = new LuminisManagers();
 
         configuration = ConfigurationLoader.loadFrom(new File("configuration.json"));
-        commandsManager = new LuminisCommandsManager(luminisManagers);
         databaseManager = new DatabaseManager(configuration, luminisManagers);
+        commandsManager = new LuminisCommandsManager(luminisManagers, databaseManager);
 
         listenerManager = LuminisListenerBuilder
                 .aSmartBotListener()
                 .withDatabaseManager(databaseManager)
                 .withSmartBotManagers(luminisManagers)
                 .build();
+
     }
 
 }
