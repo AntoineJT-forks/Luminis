@@ -1,5 +1,6 @@
 package fr.alkadev.luminis.addons;
 
+import fr.alkadev.luminis.addons.minesweeper.MinesweeperAddon;
 import fr.alkadev.luminis.addons.polls.PollsAddon;
 import fr.alkadev.luminis.addons.system.SystemAddon;
 
@@ -13,7 +14,8 @@ public class LuminisAddonsManager extends AddonsManager {
 
         return Arrays.asList(
                 new PollsAddon(),
-                new SystemAddon()
+                new SystemAddon(),
+                new MinesweeperAddon()
         );
 
     }
