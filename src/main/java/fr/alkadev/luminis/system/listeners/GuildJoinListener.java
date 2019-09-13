@@ -4,7 +4,7 @@ import fr.alkadev.luminis.system.managers.ChannelsIdsManager;
 import fr.alkadev.luminis.system.managers.GuildsIdsManager;
 import fr.alkadev.luminis.system.managers.LuminisManager;
 import fr.alkadev.luminis.system.managers.LuminisManagers;
-import fr.alkadev.luminis.system.model.GuildChannelsIds;
+import fr.alkadev.luminis.model.GuildChannelsIds;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

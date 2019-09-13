@@ -18,6 +18,7 @@ public class DatabaseManager {
         this.databaseConnection = DatabaseBuilder
                 .aDatabaseBuilder()
                 .withHost(configuration.host)
+                .withPort(configuration.port)
                 .withUserName(configuration.userName)
                 .withPassword(configuration.password)
                 .withDatabaseName(configuration.databaseName)

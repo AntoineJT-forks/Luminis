@@ -3,6 +3,7 @@ package fr.alkadev.luminis.utils.configuration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.BufferedReader;
 import java.io.File;
 
 class Serializer<T> {

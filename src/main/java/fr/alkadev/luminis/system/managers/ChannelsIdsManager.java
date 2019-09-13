@@ -1,7 +1,7 @@
 package fr.alkadev.luminis.system.managers;
 
 import fr.alkadev.luminis.database.DatabaseSaver;
-import fr.alkadev.luminis.system.model.GuildChannelsIds;
+import fr.alkadev.luminis.model.GuildChannelsIds;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Record3;

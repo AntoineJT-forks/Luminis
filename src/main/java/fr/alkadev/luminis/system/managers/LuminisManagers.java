@@ -1,7 +1,7 @@
 package fr.alkadev.luminis.system.managers;
 
 import fr.alkadev.luminis.database.DatabaseSaver;
-import fr.alkadev.luminis.polls.PollsManager;
+import fr.alkadev.luminis.addons.polls.PollsManager;
 
 import java.util.Arrays;
 import java.util.List;

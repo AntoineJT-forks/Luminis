@@ -1,12 +1,8 @@
 package fr.alkadev.luminis;
 
-import com.jagrosh.jdautilities.commons.utils.FinderUtil;
-import com.jagrosh.jdautilities.commons.utils.FixedSizeCache;
-import com.jagrosh.jdautilities.commons.utils.SafeIdUtil;
-import fr.alkadev.luminis.system.commands.LuminisCommandsManager;
+import fr.alkadev.luminis.addons.AddonsManager;
+import fr.alkadev.luminis.addons.LuminisAddonsManager;
 import fr.alkadev.luminis.database.DatabaseManager;
-import fr.alkadev.luminis.system.listeners.ListenerManager;
-import fr.alkadev.luminis.system.listeners.LuminisListenerBuilder;
 import fr.alkadev.luminis.system.managers.LuminisManagers;
 import fr.alkadev.luminis.utils.configuration.Configuration;
 import fr.alkadev.luminis.utils.configuration.ConfigurationLoader;
@@ -23,15 +19,17 @@ public class Main {
 
     private static Configuration configuration;
     private static DatabaseManager databaseManager;
-    private static ListenerManager listenerManager;
-    private static LuminisCommandsManager commandsManager;
+    private static AddonsManager addonsManager;
+    private static LuminisManagers luminisManagers;
 
     public static void main(String[] args) {
 
         load();
 
-        LuminisBot luminisBot = new LuminisBot(databaseManager);
-        luminisBot.start(configuration, listenerManager, commandsManager);
+        LuminisBot luminisBot = new LuminisBot(databaseManager, addonsManager);
+
+        luminisBot.buildClient(configuration, luminisManagers);
+        luminisBot.start(configuration);
 
         while (!SCANNER.nextLine().equalsIgnoreCase("stop")) {
             LOGGER.error("write \"stop\" to stop the bot");
@@ -39,22 +37,13 @@ public class Main {
 
         luminisBot.stop();
 
-
     }
 
     private static void load() {
-        LuminisManagers luminisManagers = new LuminisManagers();
-
+        luminisManagers = new LuminisManagers();
         configuration = ConfigurationLoader.loadFrom(new File("configuration.json"));
         databaseManager = new DatabaseManager(configuration, luminisManagers);
-        commandsManager = new LuminisCommandsManager(luminisManagers, databaseManager);
-
-        listenerManager = LuminisListenerBuilder
-                .aSmartBotListener()
-                .withDatabaseManager(databaseManager)
-                .withSmartBotManagers(luminisManagers)
-                .build();
-
+        addonsManager = new LuminisAddonsManager();
     }
 
 }

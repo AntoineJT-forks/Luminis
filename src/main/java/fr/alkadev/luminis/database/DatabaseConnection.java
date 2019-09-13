@@ -15,7 +15,7 @@ class DatabaseConnection {
     }
 
     private void setUpHikariCP(DatabaseBuilder builder) {
-        this.dataSource.setJdbcUrl("jdbc:postgresql://" + builder.host + ":5432/" + builder.databaseName);
+        this.dataSource.setJdbcUrl("jdbc:postgresql://" + builder.host + ":" + builder.port + "/" + builder.databaseName);
         this.dataSource.setUsername(builder.userName);
         this.dataSource.setPassword(builder.password);
         this.dataSource.addDataSourceProperty("autoReconnect", true);

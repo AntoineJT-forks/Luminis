@@ -3,6 +3,7 @@ package fr.alkadev.luminis.database;
 class DatabaseBuilder {
 
     String host;
+    String port;
     String userName;
     String password;
     String databaseName;
@@ -15,6 +16,11 @@ class DatabaseBuilder {
 
     DatabaseBuilder withHost(String host) {
         this.host = host;
+        return this;
+    }
+
+    DatabaseBuilder withPort(String port) {
+        this.port = port;
         return this;
     }
 
