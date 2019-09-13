@@ -22,7 +22,7 @@ public class UserInfosCommand extends LuminisCommand {
     public UserInfosCommand() {
         this.name = "userinfos";
         this.help = "Affiche les informations relatives à un utilisateur";
-        this.arguments = "[nothing - @mention]";
+        this.arguments = "[rien - @mention]";
         this.category = CommandCategory.SYSTEM.category;
         this.guildOnly = true;
     }
