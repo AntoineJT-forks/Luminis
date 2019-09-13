@@ -8,7 +8,8 @@ import java.util.function.Predicate;
 public enum CommandCategory {
 
     SYSTEM("Système"),
-    POLL("Sondages");
+    POLL("Sondages"),
+    GAME("Jeux");
 
     public final Command.Category category;
 
