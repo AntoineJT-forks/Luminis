@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.addons.polls;
+package fr.alkadev.luminis.addons.polls.model;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;

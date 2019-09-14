@@ -5,22 +5,10 @@ import fr.alkadev.luminis.addons.Addon;
 import fr.alkadev.luminis.addons.system.commands.AboutCommand;
 import fr.alkadev.luminis.addons.system.commands.RemindCommand;
 import fr.alkadev.luminis.addons.system.commands.UserInfosCommand;
-import fr.alkadev.luminis.core.managers.LuminisManagers;
-import net.dv8tion.jda.api.JDA;
 
 import java.util.Arrays;
 
 public class SystemAddon implements Addon {
-
-    @Override
-    public boolean start(LuminisManagers luminisManagers) {
-        return true;
-    }
-
-    @Override
-    public boolean stop() {
-        return true;
-    }
 
     @Override
     public void registerCommand(CommandClientBuilder clientBuilder) {
@@ -34,13 +22,8 @@ public class SystemAddon implements Addon {
     }
 
     @Override
-    public void registerListeners(JDA jda) {
-
-    }
-
-    @Override
-    public String getAddonName() {
-        return "System";
+    public String getName() {
+        return "Core";
     }
 
 }

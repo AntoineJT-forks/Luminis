@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.addons.polls;
+package fr.alkadev.luminis.addons.polls.model;
 
 import fr.alkadev.luminis.core.managers.LuminisManager;
 

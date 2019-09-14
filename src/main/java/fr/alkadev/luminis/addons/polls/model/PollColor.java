@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.addons.polls;
+package fr.alkadev.luminis.addons.polls.model;
 
 import java.awt.*;
 import java.util.Arrays;

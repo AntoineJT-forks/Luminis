@@ -28,10 +28,10 @@ public abstract class AddonsManager {
 
     private void startAddon(Addon addon, LuminisManagers luminisManagers) {
 
-        LOGGER.info("ENABLING " + addon.getAddonName() + " addon");
+        LOGGER.info("ENABLING " + addon.getName() + " addon");
 
         if (!addon.start(luminisManagers)) {
-            LOGGER.error("FAILED to load " + addon.getAddonName() + " addon");
+            LOGGER.error("FAILED to load " + addon.getName() + " addon");
         }
 
     }
@@ -54,10 +54,10 @@ public abstract class AddonsManager {
 
     private void stopAddon(Addon addon) {
 
-        LOGGER.info("DISABLING " + addon.getAddonName() + " addon");
+        LOGGER.info("DISABLING " + addon.getName() + " addon");
 
         if (!addon.stop()) {
-            LOGGER.error("FAILED to disable " + addon.getAddonName() + " addon");
+            LOGGER.error("FAILED to disable " + addon.getName() + " addon");
         }
 
     }
