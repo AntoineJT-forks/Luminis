@@ -2,8 +2,8 @@ package fr.alkadev.luminis;
 
 import fr.alkadev.luminis.addons.AddonsManager;
 import fr.alkadev.luminis.addons.LuminisAddonsManager;
-import fr.alkadev.luminis.database.DatabaseManager;
-import fr.alkadev.luminis.system.managers.LuminisManagers;
+import fr.alkadev.luminis.core.database.DatabaseManager;
+import fr.alkadev.luminis.core.managers.LuminisManagers;
 import fr.alkadev.luminis.utils.configuration.Configuration;
 import fr.alkadev.luminis.utils.configuration.ConfigurationLoader;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.model;
+package fr.alkadev.luminis.core.model;
 
 import java.util.HashMap;
 import java.util.Map;

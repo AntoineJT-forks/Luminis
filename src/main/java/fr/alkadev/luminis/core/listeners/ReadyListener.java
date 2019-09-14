@@ -1,7 +1,7 @@
-package fr.alkadev.luminis.system.listeners;
+package fr.alkadev.luminis.core.listeners;
 
-import fr.alkadev.luminis.database.DatabaseManager;
-import fr.alkadev.luminis.database.task.DatabaseTask;
+import fr.alkadev.luminis.core.database.DatabaseManager;
+import fr.alkadev.luminis.core.task.DatabaseTask;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

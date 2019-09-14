@@ -1,7 +1,7 @@
-package fr.alkadev.luminis.system.listeners;
+package fr.alkadev.luminis.core.listeners;
 
-import fr.alkadev.luminis.database.DatabaseManager;
-import fr.alkadev.luminis.system.managers.LuminisManagers;
+import fr.alkadev.luminis.core.database.DatabaseManager;
+import fr.alkadev.luminis.core.managers.LuminisManagers;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Arrays;

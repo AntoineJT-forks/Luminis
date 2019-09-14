@@ -4,8 +4,8 @@ import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import fr.alkadev.luminis.addons.minesweeper.MinesweeperBuilder;
 import fr.alkadev.luminis.addons.minesweeper.MinesweeperDifficulty;
-import fr.alkadev.luminis.system.commands.CommandCategory;
-import fr.alkadev.luminis.system.commands.LuminisCommand;
+import fr.alkadev.luminis.core.commands.CommandCategory;
+import fr.alkadev.luminis.core.commands.LuminisCommand;
 
 import java.util.List;
 import java.util.stream.Collectors;

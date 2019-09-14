@@ -1,6 +1,6 @@
-package fr.alkadev.luminis.database;
+package fr.alkadev.luminis.core.database;
 
-import fr.alkadev.luminis.system.managers.LuminisManagers;
+import fr.alkadev.luminis.core.managers.LuminisManagers;
 import fr.alkadev.luminis.utils.configuration.Configuration;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;

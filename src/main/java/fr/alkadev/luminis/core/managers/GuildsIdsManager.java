@@ -1,9 +1,8 @@
-package fr.alkadev.luminis.system.managers;
+package fr.alkadev.luminis.core.managers;
 
-import fr.alkadev.luminis.database.DatabaseSaver;
+import fr.alkadev.luminis.core.database.DatabaseSaver;
 import org.jooq.*;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 

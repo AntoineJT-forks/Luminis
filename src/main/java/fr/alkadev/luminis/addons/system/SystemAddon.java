@@ -5,7 +5,7 @@ import fr.alkadev.luminis.addons.Addon;
 import fr.alkadev.luminis.addons.system.commands.AboutCommand;
 import fr.alkadev.luminis.addons.system.commands.RemindCommand;
 import fr.alkadev.luminis.addons.system.commands.UserInfosCommand;
-import fr.alkadev.luminis.system.managers.LuminisManagers;
+import fr.alkadev.luminis.core.managers.LuminisManagers;
 import net.dv8tion.jda.api.JDA;
 
 import java.util.Arrays;

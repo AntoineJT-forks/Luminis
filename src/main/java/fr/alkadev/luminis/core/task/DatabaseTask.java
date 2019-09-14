@@ -1,6 +1,6 @@
-package fr.alkadev.luminis.database.task;
+package fr.alkadev.luminis.core.task;
 
-import fr.alkadev.luminis.database.DatabaseManager;
+import fr.alkadev.luminis.core.database.DatabaseManager;
 
 import java.util.TimerTask;
 

@@ -3,8 +3,8 @@ package fr.alkadev.luminis.addons.system.commands;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jdautilities.doc.standard.CommandInfo;
 import com.jagrosh.jdautilities.examples.doc.Author;
-import fr.alkadev.luminis.system.commands.CommandCategory;
-import fr.alkadev.luminis.system.commands.LuminisCommand;
+import fr.alkadev.luminis.core.commands.CommandCategory;
+import fr.alkadev.luminis.core.commands.LuminisCommand;
 import net.dv8tion.jda.api.Permission;
 
 @Author("Luka")

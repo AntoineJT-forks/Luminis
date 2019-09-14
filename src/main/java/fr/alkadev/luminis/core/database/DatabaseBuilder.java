@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.database;
+package fr.alkadev.luminis.core.database;
 
 class DatabaseBuilder {
 

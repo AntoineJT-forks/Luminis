@@ -1,9 +1,9 @@
 package fr.alkadev.luminis.addons.polls.commands;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
-import fr.alkadev.luminis.system.commands.LuminisCommand;
+import fr.alkadev.luminis.core.commands.LuminisCommand;
 import fr.alkadev.luminis.addons.polls.PollBuilder;
-import fr.alkadev.luminis.system.managers.LuminisManager;
+import fr.alkadev.luminis.core.managers.LuminisManager;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 

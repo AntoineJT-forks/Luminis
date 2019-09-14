@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.system.managers;
+package fr.alkadev.luminis.core.managers;
 
 public interface LuminisManager<T, U> {
 

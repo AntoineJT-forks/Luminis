@@ -5,9 +5,9 @@ import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import fr.alkadev.luminis.addons.Addon;
 import fr.alkadev.luminis.addons.polls.commands.PollCommand;
 import fr.alkadev.luminis.addons.polls.commands.arguments.*;
-import fr.alkadev.luminis.system.managers.ChannelsIdsManager;
-import fr.alkadev.luminis.system.managers.GuildsIdsManager;
-import fr.alkadev.luminis.system.managers.LuminisManagers;
+import fr.alkadev.luminis.core.managers.ChannelsIdsManager;
+import fr.alkadev.luminis.core.managers.GuildsIdsManager;
+import fr.alkadev.luminis.core.managers.LuminisManagers;
 import net.dv8tion.jda.api.JDA;
 
 import java.util.Arrays;

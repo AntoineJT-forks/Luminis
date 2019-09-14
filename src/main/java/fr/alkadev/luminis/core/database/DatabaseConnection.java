@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.database;
+package fr.alkadev.luminis.core.database;
 
 import com.zaxxer.hikari.HikariDataSource;
 

@@ -3,8 +3,8 @@ package fr.alkadev.luminis.addons.minesweeper.commands.arguments;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import fr.alkadev.luminis.addons.minesweeper.MinesweeperBuilder;
 import fr.alkadev.luminis.addons.minesweeper.MinesweeperDifficulty;
-import fr.alkadev.luminis.system.commands.CommandCategory;
-import fr.alkadev.luminis.system.commands.LuminisCommand;
+import fr.alkadev.luminis.core.commands.CommandCategory;
+import fr.alkadev.luminis.core.commands.LuminisCommand;
 
 public class DifficultyArgument extends LuminisCommand {
 

@@ -1,6 +1,6 @@
 package fr.alkadev.luminis.addons.polls;
 
-import fr.alkadev.luminis.system.managers.LuminisManager;
+import fr.alkadev.luminis.core.managers.LuminisManager;
 
 import java.util.HashMap;
 

@@ -1,10 +1,10 @@
-package fr.alkadev.luminis.system.listeners;
+package fr.alkadev.luminis.core.listeners;
 
-import fr.alkadev.luminis.system.managers.ChannelsIdsManager;
-import fr.alkadev.luminis.system.managers.GuildsIdsManager;
-import fr.alkadev.luminis.system.managers.LuminisManager;
-import fr.alkadev.luminis.system.managers.LuminisManagers;
-import fr.alkadev.luminis.model.GuildChannelsIds;
+import fr.alkadev.luminis.core.managers.ChannelsIdsManager;
+import fr.alkadev.luminis.core.managers.GuildsIdsManager;
+import fr.alkadev.luminis.core.managers.LuminisManager;
+import fr.alkadev.luminis.core.managers.LuminisManagers;
+import fr.alkadev.luminis.core.model.GuildChannelsIds;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

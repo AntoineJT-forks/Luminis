@@ -1,7 +1,7 @@
 package fr.alkadev.luminis.addons;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import fr.alkadev.luminis.system.managers.LuminisManagers;
+import fr.alkadev.luminis.core.managers.LuminisManagers;
 import net.dv8tion.jda.api.JDA;
 
 public interface Addon {
