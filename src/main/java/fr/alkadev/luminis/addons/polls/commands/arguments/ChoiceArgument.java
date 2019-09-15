@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.entities.User;
 import java.util.Arrays;
 
 @Author("Luka")
-@CommandInfo(name = "choice", description = "change the channel where polls are sent")
+@CommandInfo(name = "choice", description = "change the value of a choice")
 public class ChoiceArgument extends PollCommandArgument {
 
     public ChoiceArgument(LuminisManager<PollBuilder, Long> pollsManager) {
@@ -20,6 +20,7 @@ public class ChoiceArgument extends PollCommandArgument {
         this.name = "choice";
         this.help = "Changer un choix.";
         this.category = CommandCategory.POLL.category;
+        this.arguments = "[numéro du choix] [rien - choix]";
         this.guildOnly = false;
     }
 

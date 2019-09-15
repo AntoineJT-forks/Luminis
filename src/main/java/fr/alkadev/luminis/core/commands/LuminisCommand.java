@@ -4,6 +4,7 @@ import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public abstract class LuminisCommand extends Command {
 
@@ -19,6 +20,14 @@ public abstract class LuminisCommand extends Command {
         this.execute(event, args);
 
     }
+
+    protected String getChildrenHelp() {
+        return Arrays.stream(this.children)
+                .filter(command -> command.getArguments() != null)
+                .map(command -> "\t``" + command.getName() + " " + command.getArguments() + "`` - " + command.getHelp())
+                .collect(Collectors.joining("\n"));
+    }
+
 
     protected abstract void execute(CommandEvent event, String[] args);
 

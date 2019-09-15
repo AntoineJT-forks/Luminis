@@ -7,6 +7,7 @@ import com.jagrosh.jdautilities.examples.doc.Author;
 import fr.alkadev.luminis.core.commands.CommandCategory;
 import fr.alkadev.luminis.core.commands.LuminisCommand;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,10 +17,10 @@ public class PollCommand extends LuminisCommand {
 
     public PollCommand(List<Command> arguments) {
         this.name = "poll";
-        this.help = "Créer et gérer un sondage.";
+        this.children = arguments.toArray(new Command[]{});
+        this.help = "Créer et gérer un sondage.\n" + super.getChildrenHelp();
         this.category = CommandCategory.POLL.category;
         this.arguments = "[" + arguments.stream().map(Command::getName).collect(Collectors.joining(" - ")) + "]";
-        this.children = arguments.toArray(new Command[]{});
         this.guildOnly = false;
     }
 

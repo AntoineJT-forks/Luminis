@@ -29,6 +29,7 @@ public class ChannelArgument extends PollCommandArgument {
         this.help = "Change le channel où sont envoyés les sondage.";
         this.userPermissions = new Permission[]{Permission.ADMINISTRATOR};
         this.category = CommandCategory.POLL.category;
+        this.arguments = "[@mention du nouveau channel]";
         this.guildOnly = true;
     }
 

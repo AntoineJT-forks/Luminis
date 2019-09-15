@@ -27,6 +27,7 @@ public class PollBuilder {
 
     public void withQuestion(String question) {
         this.question = question;
+        if (question.isEmpty()) this.question = "";
     }
 
     public void addChoice(int choiceNumber, String choice) {

@@ -15,8 +15,9 @@ public class AskArgument extends PollCommandArgument {
     public AskArgument(LuminisManager<PollBuilder, Long> pollsManager) {
         super(pollsManager);
         this.name = "ask";
-        this.help = "Changer la question du sondage";
+        this.help = "Changer la question du sondage.";
         this.category = CommandCategory.POLL.category;
+        this.arguments = "[question]";
         this.guildOnly = false;
     }
 

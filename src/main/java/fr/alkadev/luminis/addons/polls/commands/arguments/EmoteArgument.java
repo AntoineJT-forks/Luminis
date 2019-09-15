@@ -18,6 +18,7 @@ public class EmoteArgument extends PollCommandArgument {
         this.name = "emote";
         this.help = "Changer l'emote correspondant au choix.";
         this.category = CommandCategory.POLL.category;
+        this.arguments = "[numéro du choix] [emote]";
         this.guildOnly = false;
     }
 

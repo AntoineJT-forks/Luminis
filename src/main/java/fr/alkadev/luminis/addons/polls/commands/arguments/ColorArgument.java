@@ -18,6 +18,7 @@ public class ColorArgument extends PollCommandArgument {
         this.name = "color";
         this.help = "Change la couleur du sondage.";
         this.category = CommandCategory.POLL.category;
+        this.arguments = "[couleur (anglais)]";
         this.guildOnly = false;
     }
 

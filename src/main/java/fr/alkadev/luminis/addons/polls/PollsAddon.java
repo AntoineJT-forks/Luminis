@@ -41,8 +41,6 @@ public class PollsAddon implements Addon {
         );
 
         clientBuilder.addCommand(new PollCommand(arguments));
-        arguments.forEach(clientBuilder::addCommand);
-
     }
 
     @Override

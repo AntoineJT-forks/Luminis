@@ -4,7 +4,7 @@ import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import fr.alkadev.luminis.addons.Addon;
 import fr.alkadev.luminis.addons.minesweeper.commands.MinesweeperCommand;
-import fr.alkadev.luminis.addons.minesweeper.commands.arguments.DifficultyArgument;
+import fr.alkadev.luminis.addons.minesweeper.commands.DifficultyArgument;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +19,6 @@ public class MinesweeperAddon implements Addon {
         );
 
         clientBuilder.addCommand(new MinesweeperCommand(arguments));
-        arguments.forEach(clientBuilder::addCommand);
     }
 
     @Override
