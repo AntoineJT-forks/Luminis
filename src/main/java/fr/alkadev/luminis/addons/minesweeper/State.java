@@ -34,7 +34,7 @@ public enum State {
 
     public static State fromBombCount(int ordinal) {
         final State[] values = values();
-        return (ordinal > 0 && ordinal < values.length) ? values[ordinal] : BOMB;
+        return (ordinal >= 0 && ordinal < values.length) ? values[ordinal] : BOMB;
     }
 
     @Override
