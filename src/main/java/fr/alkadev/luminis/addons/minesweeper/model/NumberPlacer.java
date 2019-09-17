@@ -21,7 +21,7 @@ class NumberPlacer {
     private void placeLineNumbers(int x) {
         for (int y = 0; y < grid.length; y++) {
             int bombCount = countBombs(new Point(x, y));
-            grid[x][y] = State.from(bombCount);
+            grid[x][y] = State.fromBombCount(bombCount);
         }
     }
 
@@ -29,7 +29,7 @@ class NumberPlacer {
         State current = grid[point.x][point.y];
 
         if (current == State.BOMB) {
-            return -1;
+            return State.BOMB.ordinal();
         }
 
         int counter = 0;
