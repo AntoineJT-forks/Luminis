@@ -37,6 +37,7 @@ public class PollsAddon implements Addon {
                 new AskArgument(pollsManager),
                 new ChoiceArgument(pollsManager),
                 new EmoteArgument(pollsManager),
+                new FinishArgument(pollsManager, luminisManagers.getManager(GuildsIdsManager.class), luminisManagers.getManager(ChannelsIdsManager.class)),
                 new ChannelArgument(luminisManagers.getManager(ChannelsIdsManager.class), luminisManagers.getManager(GuildsIdsManager.class))
         );
 

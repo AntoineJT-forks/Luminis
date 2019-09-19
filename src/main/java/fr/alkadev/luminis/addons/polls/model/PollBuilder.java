@@ -61,4 +61,9 @@ public class PollBuilder {
         return new MessageBuilder().setEmbed(embedBuilder.build()).build();
 
     }
+
+    public long getGuildId() {
+        return guildId;
+    }
+
 }

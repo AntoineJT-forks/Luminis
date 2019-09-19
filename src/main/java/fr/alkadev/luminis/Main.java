@@ -43,7 +43,7 @@ public class Main {
         luminisManagers = new LuminisManagers();
         configuration = ConfigurationLoader.loadFrom(new File("configuration.json"));
         databaseManager = new DatabaseManager(configuration, luminisManagers);
-        addonsManager = new LuminisAddonsManager();
+        addonsManager = new LuminisAddonsManager(databaseManager, luminisManagers);
     }
 
 }

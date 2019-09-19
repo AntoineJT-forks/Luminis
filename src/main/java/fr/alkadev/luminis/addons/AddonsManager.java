@@ -12,17 +12,11 @@ public abstract class AddonsManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AddonsManager.class);
 
-    private final List<Addon> addons;
-
-    AddonsManager() {
-        addons = this.getAddons();
-    }
-
     abstract List<Addon> getAddons();
 
     public void start(LuminisManagers luminisManagers) {
 
-        this.addons.forEach(addon -> this.startAddon(addon, luminisManagers));
+        this.getAddons().forEach(addon -> this.startAddon(addon, luminisManagers));
 
     }
 
@@ -38,18 +32,18 @@ public abstract class AddonsManager {
 
     public void registerCommands(CommandClientBuilder commandClientBuilder) {
 
-        this.addons.forEach(addon -> addon.registerCommand(commandClientBuilder));
+        this.getAddons().forEach(addon -> addon.registerCommand(commandClientBuilder));
 
     }
 
     public void registerListeners(JDA jda) {
 
-        this.addons.forEach(addon -> addon.registerListeners(jda));
+        this.getAddons().forEach(addon -> addon.registerListeners(jda));
 
     }
 
     public void stop() {
-        this.addons.forEach(this::stopAddon);
+        this.getAddons().forEach(this::stopAddon);
     }
 
     private void stopAddon(Addon addon) {

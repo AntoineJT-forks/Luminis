@@ -1,4 +1,4 @@
-package fr.alkadev.luminis.core.listeners;
+package fr.alkadev.luminis.addons.system.listeners;
 
 import fr.alkadev.luminis.core.database.DatabaseManager;
 import fr.alkadev.luminis.core.task.DatabaseTask;

@@ -17,6 +17,7 @@ public class CancelArgument extends PollCommandArgument {
         this.name = "cancel";
         this.help = "Annuler un sondage";
         this.category = CommandCategory.POLL.category;
+        this.arguments = "";
         this.guildOnly = false;
     }
 

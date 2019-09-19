@@ -49,7 +49,8 @@ class LuminisBot {
                     .addEventListeners(clientBuilder.build())
                     .build();
 
-            addonsManager.registerListeners(jda);
+
+            this.addonsManager.registerListeners(jda);
             this.databaseManager.load();
 
             LOGGER.info("Bot connected");

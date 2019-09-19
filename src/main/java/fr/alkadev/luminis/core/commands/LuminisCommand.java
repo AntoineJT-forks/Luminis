@@ -23,7 +23,6 @@ public abstract class LuminisCommand extends Command {
 
     protected String getChildrenHelp() {
         return Arrays.stream(this.children)
-                .filter(command -> command.getArguments() != null)
                 .map(command -> "\t``" + command.getName() + " " + command.getArguments() + "`` - " + command.getHelp())
                 .collect(Collectors.joining("\n"));
     }

@@ -38,8 +38,7 @@ public class ChannelArgument extends PollCommandArgument {
 
         List<TextChannel> mentionedChannels = event.getMessage().getMentionedChannels();
 
-        if (mentionedChannels.size() != 0) {
-            this.changeChannel(event, mentionedChannels.get(0));
+        if (mentionedChannels.size() != 0) { this.changeChannel(event, mentionedChannels.get(0));
             return;
         }
 
@@ -50,7 +49,7 @@ public class ChannelArgument extends PollCommandArgument {
         int guildId = this.guildsIdsManager.get(event.getGuild().getIdLong());
 
         this.channelsIdsManager.get(guildId).put("polls", newPollChannel.getIdLong());
-        event.replyInDm("Le salon des sondages a bien été défini à " + newPollChannel.getAsMention() + ".");
+        event.reply("Le salon des sondages a bien été défini à " + newPollChannel.getAsMention() + ".");
     }
 
 }

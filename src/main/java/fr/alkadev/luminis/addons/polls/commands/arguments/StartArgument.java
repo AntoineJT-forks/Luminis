@@ -18,6 +18,7 @@ public class StartArgument extends PollCommandArgument {
         this.name = "start";
         this.help = "Démarre la création d'un sondage.";
         this.category = CommandCategory.POLL.category;
+        this.arguments = "";
         this.guildOnly = true;
     }
 
