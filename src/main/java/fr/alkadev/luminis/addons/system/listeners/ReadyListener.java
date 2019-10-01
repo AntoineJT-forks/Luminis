@@ -17,7 +17,8 @@ public class ReadyListener extends ListenerAdapter {
 
     @Override
     public void onReady(ReadyEvent event) {
-        int tenMinutesPeriod = 1_000 * 60 * 10;
+        // TODO Remove this variable?
+        // int tenMinutesPeriod = 1_000 * 60 * 10;
         new Thread(() -> new Timer().schedule(new DatabaseTask(this.databaseManager), 0, 3000)).start();
     }
 
