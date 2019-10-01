@@ -7,7 +7,6 @@ import com.jagrosh.jdautilities.examples.doc.Author;
 import fr.alkadev.luminis.core.commands.CommandCategory;
 import fr.alkadev.luminis.core.commands.LuminisCommand;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
