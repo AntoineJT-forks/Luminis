@@ -9,11 +9,14 @@ import fr.alkadev.luminis.utils.LuminisOnlineStatus;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.List;
 
 @Author("Alexandre")
 @CommandInfo(name = "userinfos", description = "show a user's infos")
@@ -43,7 +46,8 @@ public class UserInfosCommand extends LuminisCommand {
         addMemberInfos(member, embedBuilder);
 
         Member sender = event.getMember();
-        embedBuilder.setFooter("Requête effectuée par " + sender.getUser().getName(), sender.getUser().getAvatarUrl());
+        User user = sender.getUser();
+        embedBuilder.setFooter("Requête effectuée par " + user.getName(), user.getAvatarUrl());
 
         event.reply(embedBuilder.build());
 
@@ -52,13 +56,14 @@ public class UserInfosCommand extends LuminisCommand {
     private void addMemberInfos(Member member, EmbedBuilder embedBuilder) {
 
         StringBuilder roleBuilder = new StringBuilder();
-        member.getRoles().forEach(role -> roleBuilder.append(role.getName()).append(", "));
+        List<Role> roles = member.getRoles();
+        roles.forEach(role -> roleBuilder.append(role.getName()).append(", "));
 
         String nickname = member.getNickname() == null ? "Aucun surnom" : member.getNickname();
         String gameName = member.getActivities().size() == 0 ? "Aucun jeu" : member.getActivities().get(0).getName();
         String creationTime = member.getTimeCreated().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
         String joinTime = member.getTimeJoined().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
-        String roleList = member.getRoles().isEmpty() ? "Aucun rôle" : roleBuilder.toString().substring(0, roleBuilder.toString().length() - 2);
+        String roleList = roles.isEmpty() ? "Aucun rôle" : roleBuilder.toString().substring(0, roleBuilder.toString().length() - 2);
 
         embedBuilder.addField("ID", member.getUser().getId(), true);
         embedBuilder.addField("Pseudonyme", nickname, true);
@@ -71,8 +76,11 @@ public class UserInfosCommand extends LuminisCommand {
     }
 
     private void addBasicInfos(Member member, EmbedBuilder embedBuilder) {
-        embedBuilder.setAuthor(member.getUser().getAsTag(), null, member.getUser().getAvatarUrl());
-        embedBuilder.setThumbnail(member.getUser().getAvatarUrl());
+        User user = member.getUser();
+        String avatarUrl = user.getAvatarUrl();
+
+        embedBuilder.setAuthor(user.getAsTag(), null, avatarUrl);
+        embedBuilder.setThumbnail(avatarUrl);
         embedBuilder.setTimestamp(Instant.now());
         embedBuilder.setColor(Color.ORANGE);
     }
