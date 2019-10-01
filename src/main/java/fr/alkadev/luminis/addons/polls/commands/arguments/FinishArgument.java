@@ -9,6 +9,7 @@ import fr.alkadev.luminis.core.commands.CommandCategory;
 import fr.alkadev.luminis.core.managers.LuminisManager;
 import fr.alkadev.luminis.core.model.GuildChannelsIds;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 @Author("Luka")
 @CommandInfo(name = "finish", description = "valid a poll")
@@ -36,7 +37,8 @@ public class FinishArgument extends PollCommandArgument {
 
         if (channel != null) {
 
-            channel.sendMessage(this.pollsManager.get(event.getAuthor().getIdLong()).toMessage(event.getAuthor())).queue();
+            User author = event.getAuthor();
+            channel.sendMessage(this.pollsManager.get(author.getIdLong()).toMessage(author)).queue();
 
         }
 
