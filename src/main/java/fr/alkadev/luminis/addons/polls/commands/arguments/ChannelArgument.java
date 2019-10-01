@@ -38,7 +38,8 @@ public class ChannelArgument extends PollCommandArgument {
 
         List<TextChannel> mentionedChannels = event.getMessage().getMentionedChannels();
 
-        if (mentionedChannels.size() != 0) { this.changeChannel(event, mentionedChannels.get(0));
+        if (mentionedChannels.size() != 0) {
+            this.changeChannel(event, mentionedChannels.get(0));
             return;
         }
 

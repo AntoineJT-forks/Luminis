@@ -9,7 +9,7 @@ public enum MinesweeperDifficulty {
 
     private final int bombAmount;
 
-    MinesweeperDifficulty(int bombAmount){
+    MinesweeperDifficulty(int bombAmount) {
         this.bombAmount = bombAmount;
     }
 

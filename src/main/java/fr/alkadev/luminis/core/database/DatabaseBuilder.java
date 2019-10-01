@@ -8,7 +8,8 @@ class DatabaseBuilder {
     String password;
     String databaseName;
 
-    private DatabaseBuilder() {}
+    private DatabaseBuilder() {
+    }
 
     static DatabaseBuilder aDatabaseBuilder() {
         return new DatabaseBuilder();

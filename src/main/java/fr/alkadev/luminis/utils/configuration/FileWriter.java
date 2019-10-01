@@ -6,7 +6,8 @@ import java.io.IOException;
 
 class FileWriter {
 
-    private FileWriter(){}
+    private FileWriter() {
+    }
 
     static void writeFile(File file, String content) {
 

@@ -18,6 +18,7 @@ public class TimeParser {
         TIME_FORMAT.put("ms", 1L);
     }
 
+    // TODO To refactor!
     public static long parsePeriod(String parser) {
         Objects.requireNonNull(parser, "Parser cannot be nul");
 

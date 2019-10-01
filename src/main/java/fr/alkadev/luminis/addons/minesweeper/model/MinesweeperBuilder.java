@@ -15,7 +15,7 @@ public class MinesweeperBuilder {
         this.difficulty = difficulty;
     }
 
-    public void buildGrid(){
+    public void buildGrid() {
         BombPlacer bombPlacer = new BombPlacer(grid);
         NumberPlacer numberPlacer = new NumberPlacer(grid);
 

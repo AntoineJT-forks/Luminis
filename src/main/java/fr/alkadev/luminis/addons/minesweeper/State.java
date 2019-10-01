@@ -13,7 +13,7 @@ public enum State {
     SIX(6, "||:six:|| "),
     SEVEN(7, "||:seven:|| "),
     EIGHT(8, "||:eight:|| "),
-    BOMB(-1,"||:bomb:|| ");
+    BOMB(-1, "||:bomb:|| ");
 
     private final int id;
     private final String emote;

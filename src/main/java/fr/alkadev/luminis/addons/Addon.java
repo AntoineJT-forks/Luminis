@@ -6,13 +6,18 @@ import net.dv8tion.jda.api.JDA;
 
 public interface Addon {
 
-    default boolean start(LuminisManagers luminisManagers) {return true;}
+    default boolean start(LuminisManagers luminisManagers) {
+        return true;
+    }
 
-    default boolean stop() {return true;}
+    default boolean stop() {
+        return true;
+    }
 
     void registerCommand(CommandClientBuilder clientBuilder);
 
-    default void registerListeners(JDA jda) {}
+    default void registerListeners(JDA jda) {
+    }
 
     String getName();
 
